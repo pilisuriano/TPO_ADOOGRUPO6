@@ -1,8 +1,7 @@
 package modelo.vo;
 
-import java.util.List;
-
-public class PostulacionVO {
+public class PostulacionVO 
+{
 	private Integer mes;
 	private Integer anio;
 	private CandidatoVO candidato;
