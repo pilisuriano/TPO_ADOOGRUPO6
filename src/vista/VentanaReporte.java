@@ -16,6 +16,7 @@ import modelo.vo.ReporteVO;
 import javax.swing.JList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class VentanaReporte extends JFrame {
 
@@ -100,6 +101,11 @@ public class VentanaReporte extends JFrame {
 		});
 		btnNewButton.setBounds(103, 167, 117, 29);
 		contentPane.add(btnNewButton);		
+		
+		JLabel lbOfertaMCategorias = new JLabel("Reporte Primeras M Categorias Seleccionadas");
+		lbOfertaMCategorias.setHorizontalAlignment(SwingConstants.CENTER);
+		lbOfertaMCategorias.setBounds(349, 10, 296, 22);
+		contentPane.add(lbOfertaMCategorias);
 	}
 	
 	public void setCoordinador(ReporteController miCoordinador) {

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.SpringLayout;
 
+import controlador.PublicacionController;
 import modelo.vo.CandidatoVO;
 import modelo.vo.PublicacionVO;
 
@@ -31,6 +32,7 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 	private JTextArea taDescripcion;
 	private JLabel lbLugarTrabajo;
 	private JTextField tfLugarTrabajo;
+	private PublicacionController coordinadorPublicaciones;
 
 	/**
 	 * Launch the application.
@@ -189,7 +191,8 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 				
 				pub.setLugarTrabajo(this.tfLugarTrabajo.getText());
 				pub.setCategoria((String) this.cbCategoria.getSelectedItem());
-				pub.setSueldo(Double.parseDouble(this.tfSueldo.getText()));
+				pub.setSueldo(Float.parseFloat(this.tfSueldo.getText()));
+				this.coordinadorPublicaciones.crearPublicacion(pub);
 				
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null,"Error en el Ingreso de Datos","Error",JOptionPane.ERROR_MESSAGE);
@@ -199,5 +202,13 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 		{
 			this.dispose();
 		}
+	}
+
+	public PublicacionController getCoordinadorPublicaciones() {
+		return coordinadorPublicaciones;
+	}
+
+	public void setCoordinadorPublicaciones(PublicacionController coordinadorPublicaciones) {
+		this.coordinadorPublicaciones = coordinadorPublicaciones;
 	}
 }

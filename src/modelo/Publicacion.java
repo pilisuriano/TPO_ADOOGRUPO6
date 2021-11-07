@@ -21,4 +21,29 @@ public class Publicacion {
 					
 		return null;
 	}
+	
+	public List<PublicacionVO> getPublicacionesActivas() {
+		PublicacionDAO miPublicacionDAO;
+		
+		try {				
+			miPublicacionDAO = new PublicacionDAO();
+			return miPublicacionDAO.getPublicacionesActivas();			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
+		}
+					
+		return null;
+	}
+	
+	public void registrarPublicacion(PublicacionVO pub)
+	{
+		PublicacionDAO pubDAO;
+		
+		try {				
+			pubDAO = new PublicacionDAO();
+			pubDAO.registrarPublicacion(pub);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
+		}
+	}
 }

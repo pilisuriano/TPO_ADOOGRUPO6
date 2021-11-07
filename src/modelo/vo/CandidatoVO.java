@@ -75,6 +75,21 @@ public class CandidatoVO
 	public ArrayList<String> getIdiomas() {
 		return idiomas;
 	}
+	
+	public String getNacionalidadesStr()
+	{
+		return String.join(" ", this.nacionalidades);
+	}
+	
+	public String getInteresesStr()
+	{
+		return String.join(" ", this.intereses);
+	}
+	
+	public String getIdiomasStr()
+	{
+		return String.join(" ", this.idiomas);
+	}
 
 	public void setIdiomas(ArrayList<String> idiomas) {
 		this.idiomas = idiomas;

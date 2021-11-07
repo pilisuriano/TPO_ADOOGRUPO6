@@ -1,20 +1,28 @@
 package vista;
 
 import java.awt.EventQueue;
+import java.util.List;
 
 import javax.swing.JInternalFrame;
 import javax.swing.SpringLayout;
+
+import controlador.PublicacionController;
+import modelo.vo.PublicacionVO;
+
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
-public class VentanaVerPostulantes extends JInternalFrame {
+public class VentanaVerPostulantes extends JFrame {
 
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -27,6 +35,9 @@ public class VentanaVerPostulantes extends JInternalFrame {
 			}
 		});
 	}
+
+	private JList<String> listPublicaciones;
+	private PublicacionController coordPublicaciones;
 
 	/**
 	 * Create the frame.
@@ -41,20 +52,11 @@ public class VentanaVerPostulantes extends JInternalFrame {
 		springLayout.putConstraint(SpringLayout.SOUTH, lbPublicaciones, -381, SpringLayout.SOUTH, getContentPane());
 		getContentPane().add(lbPublicaciones);
 		
-		JList listPublicaciones = new JList();
+		listPublicaciones = new JList<String>();
 		springLayout.putConstraint(SpringLayout.NORTH, listPublicaciones, 6, SpringLayout.SOUTH, lbPublicaciones);
 		springLayout.putConstraint(SpringLayout.WEST, listPublicaciones, 10, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, listPublicaciones, -47, SpringLayout.SOUTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, listPublicaciones, -330, SpringLayout.EAST, getContentPane());
-		listPublicaciones.setModel(new AbstractListModel() {
-			String[] values = new String[] {"San Pedro", "San Lucas"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
 		getContentPane().add(listPublicaciones);
 		
 		JList listPostulantes = new JList();
@@ -96,5 +98,21 @@ public class VentanaVerPostulantes extends JInternalFrame {
 		getContentPane().add(btnSalir);
 
 	}
+	
+	public void agregarInfoPublicaciones(List<PublicacionVO> pubs)
+	{
+		DefaultListModel<String> titulosPubs = new DefaultListModel<>(); 
+		
+		for (PublicacionVO itr : pubs)
+		{
+			titulosPubs.addElement(itr.getTitulo());
+		}
+		
+		this.listPublicaciones.setModel(titulosPubs);
+	}
 
+	public void setCoordinadorPublicaciones(PublicacionController publicacionController) {
+		// TODO Auto-generated method stub
+		this.coordPublicaciones = publicacionController;
+	}
 }

@@ -14,8 +14,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 
-public class VentanaVerPublicaciones extends JInternalFrame {
+public class VentanaVerPublicaciones extends JFrame {
 
 	/**
 	 * Launch the application.

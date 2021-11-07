@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JInternalFrame;
 import javax.swing.SpringLayout;
 
+import controlador.CandidatoController;
+import modelo.conexion.Conexion;
 import modelo.vo.CandidatoVO;
 
 import javax.swing.JLabel;
@@ -29,6 +31,8 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 	private JRadioButton[] rdBtnIdiomas;
 	private JTextField tfDNI;
 
+	private CandidatoController coordinadorCandidatos;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -178,6 +182,7 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 		// TODO Auto-generated method stub
 		if (arg0.getSource().equals(this.btnRegistrar))
 		{	
+			Conexion con = new Conexion();
 			try {
 				CandidatoVO cand = new CandidatoVO();
 				cand.setNombre(this.tfNombre.getText());
@@ -194,6 +199,8 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 				for (Object itr : this.listIntereses.getSelectedValues())
 					cand.agregarInteres((String) itr);
 				
+				coordinadorCandidatos.registrarCandidato(cand);
+				
 			} catch (Exception ex) {
 				JOptionPane.showMessageDialog(null,"Error en el Ingreso de Datos","Error",JOptionPane.ERROR_MESSAGE);
 			}
@@ -203,5 +210,10 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 			System.out.println("SALRI");
 			this.dispose();
 		}
+	}
+
+	public void setCandidatoController(CandidatoController cand)
+	{
+		this.coordinadorCandidatos = cand;
 	}
 }

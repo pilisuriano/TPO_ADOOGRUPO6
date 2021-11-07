@@ -1,8 +1,13 @@
 package controlador;
 
+import vista.VentanaPrincipal;
 import vista.VentanaReporte;
 
 public class Principal {
+	
+	VentanaPrincipal mainWindow;
+	CandidatoController coordCandidatos;
+	PublicacionController coorPublicacion;
 	
 	VentanaReporte miVentanaReporte;
 	ReporteController miCoordinador;
@@ -21,15 +26,18 @@ public class Principal {
 	 */
 	private void iniciar() {
 		/*Se instancian las clases*/
-		miVentanaReporte=new VentanaReporte();
-		miCoordinador= new ReporteController();
+		this.mainWindow = new VentanaPrincipal();
+		this.coordCandidatos = new CandidatoController();
+		this.coorPublicacion = new PublicacionController();
 		
 		/*Se establecen las relaciones entre clases*/
-		miVentanaReporte.setCoordinador(miCoordinador);
+		
+		this.mainWindow.setCandidatoController(coordCandidatos);
+		this.mainWindow.setPublicacionesController(coorPublicacion);
+		this.mainWindow.setVisible(true);
 		
 		/*Se establecen relaciones con la clase coordinador*/
-		miCoordinador.setMiVentanaReporte(miVentanaReporte);		
-				
-		miVentanaReporte.setVisible(true);
+		/*miCoordinador.setMiVentanaReporte(miVentanaReporte);		
+		miVentanaReporte.setVisible(true);*/
 	}
 }

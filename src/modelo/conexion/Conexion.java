@@ -7,9 +7,9 @@ import java.sql.*;
  *
  */
 public class Conexion {
-   static String bd = "adoo";
-   static String login = "adoo";
-   static String password = "";
+   static String bd = "tpogrupo6";
+   static String login = "root";
+   static String password = "root";
    static String url = "jdbc:mysql://localhost:3306/"+bd;
 
    Connection conn = null;
@@ -23,7 +23,7 @@ public class Conexion {
          conn = DriverManager.getConnection(url,login,password);
 
          if (conn!=null){
-            System.out.println("Coneccion a base de datos "+bd+" OK");
+            System.out.println("Conexion a base de datos "+bd+" OK");
          }
       }
       catch(SQLException e){

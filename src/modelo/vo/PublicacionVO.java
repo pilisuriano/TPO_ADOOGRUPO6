@@ -25,13 +25,35 @@ public class PublicacionVO
 	private String lugarTrabajo;
 	private String categoria;
 	private ArrayList<String> requisitos;
-	private Double sueldo;
+	private float sueldo;
+	private boolean activa;
 	
 	public PublicacionVO()
 	{
 		requisitos = new ArrayList<String>();
 		tipo = TipoTrabajo.PRESENCIAL;
 		modalidad = ModalidadContrato.FULL_TIME;
+	}
+	
+	public String getModalidadStr()
+	{
+		if (modalidad.equals(ModalidadContrato.PART_TIME))
+			return "Part-Time";
+		else
+			return "Full-Time";
+	}
+	
+	public String getTipoTrabajoStr()
+	{
+		if (this.tipo.equals(TipoTrabajo.PRESENCIAL))
+			return "Presencial";
+		else
+			return "Remoto";
+	}
+	
+	public String getRequisitosStr()
+	{
+		return String.join(" ", this.requisitos);
 	}
 	
 	public String getDescripcion() {
@@ -87,16 +109,24 @@ public class PublicacionVO
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	public Double getSueldo() {
+	public float getSueldo() {
 		return sueldo;
 	}
-	public void setSueldo(Double sueldo) {
-		this.sueldo = sueldo;
+	public void setSueldo(float f) {
+		this.sueldo = f;
 	}
 	public List<PostulacionVO> getPostulaciones() {
 		return postulaciones;
 	}
 	public void setPostulaciones(List<PostulacionVO> postulaciones) {
 		this.postulaciones = postulaciones;
+	}
+
+	public boolean isActiva() {
+		return activa;
+	}
+
+	public void setActiva(boolean activa) {
+		this.activa = activa;
 	}
 }
