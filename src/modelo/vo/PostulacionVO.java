@@ -6,6 +6,7 @@ public class PostulacionVO {
 	private Integer mes;
 	private Integer anio;
 	private CandidatoVO candidato;
+	private Integer remuneracion;
 	
 	public Integer getMes() {
 		return mes;
@@ -24,5 +25,13 @@ public class PostulacionVO {
 	}
 	public void setCandidato(CandidatoVO candidato) {
 		this.candidato = candidato;
+	}
+
+	public void setRemuneracion(Integer remuneracion) {
+		this.remuneracion = remuneracion;
+	}
+
+	public Integer getRemuneracion() {
+		return remuneracion;
 	}
 }
