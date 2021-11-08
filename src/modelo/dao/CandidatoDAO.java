@@ -27,9 +27,9 @@ public class CandidatoDAO {
 			statement.setInt(1, cand.getDNI());
 			statement.setString(2, cand.getNombre() + " " + cand.getApellido());
 			statement.setDate(3, (Date) cand.getFechaNacimiento());
-			statement.setString(4, cand.getNacionalidadesStr());
-			statement.setString(5, cand.getIdiomasStr());
-			statement.setString(6, cand.getInteresesStr());
+			statement.setString(4, String.join(";", cand.getNacionalidades()));
+			statement.setString(5, String.join(";", cand.getIdiomas()));
+			statement.setString(6, String.join(";", cand.getIntereses()));
 			
 			statement.execute();
 			JOptionPane.showMessageDialog(null, "Se ha registrado Exitosamente al candidato","Informacion",JOptionPane.INFORMATION_MESSAGE);

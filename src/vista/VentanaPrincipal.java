@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import controlador.CandidatoController;
 import controlador.PublicacionController;
+import controlador.ReporteController;
 
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
@@ -29,6 +30,8 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	
 	private CandidatoController candCoordinador;
 	private PublicacionController pubCoordinador;
+	private ReporteController reporteCoordinador;
+	private JButton btnVerReportes;
 	
 	/**
 	 * Launch the application.
@@ -91,6 +94,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		sl_contentPane.putConstraint(SpringLayout.NORTH, lbOpcionesPostulante, 6, SpringLayout.SOUTH, btnVerPostulantes);
 		sl_contentPane.putConstraint(SpringLayout.WEST, lbOpcionesPostulante, 0, SpringLayout.WEST, btnVerPostulantes);
 		contentPane.add(lbOpcionesPostulante);
+		
+		btnVerReportes = new JButton("Reportes");
+		btnVerReportes.addActionListener(this);
+		sl_contentPane.putConstraint(SpringLayout.NORTH, btnVerReportes, 0, SpringLayout.NORTH, btnVerPostulantes);
+		sl_contentPane.putConstraint(SpringLayout.WEST, btnVerReportes, 6, SpringLayout.EAST, btnCrearPublicacion);
+		contentPane.add(btnVerReportes);
 	}
 
 	@Override
@@ -105,6 +114,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 			this.pubCoordinador.mostrarVentanaVerPostulantes();
 		else if (src.equals(this.btnRegistrarPostulante))
 			this.candCoordinador.mostrarVentanaRegistroPostulante();
+		else if (src.equals(btnVerReportes))
+			this.reporteCoordinador.mostrarVentanaReporte();
+		else if (src.equals(btnVerPublicaciones))
+			this.pubCoordinador.mostrarVentanaVerPublicaciones();
 	}
 	
 	public void setCandidatoController(CandidatoController c)
@@ -115,5 +128,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	public void setPublicacionesController(PublicacionController c)
 	{
 		this.pubCoordinador = c;
+	}
+
+	public void setReporteController(ReporteController coordReporte) {
+		// TODO Auto-generated method stub
+		this.reporteCoordinador = coordReporte;
 	}
 }

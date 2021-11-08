@@ -7,18 +7,18 @@ import java.awt.event.ActionListener;
 import javax.swing.SpringLayout;
 
 import controlador.PublicacionController;
-import modelo.vo.CandidatoVO;
 import modelo.vo.PublicacionVO;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
 
 public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 	private JTextField tfTitulo;
@@ -29,10 +29,10 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 	private JTextArea tARequisitos;
 	private JComboBox cbTipo;
 	private JComboBox cbModalidad;
-	private JTextArea taDescripcion;
 	private JLabel lbLugarTrabajo;
 	private JTextField tfLugarTrabajo;
 	private PublicacionController coordinadorPublicaciones;
+	private JList listTareas;
 
 	/**
 	 * Launch the application.
@@ -70,16 +70,9 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 		
 		tfTitulo = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, tfTitulo, -3, SpringLayout.NORTH, lbTitulo);
+		springLayout.putConstraint(SpringLayout.WEST, tfTitulo, 31, SpringLayout.EAST, lbTitulo);
 		getContentPane().add(tfTitulo);
 		tfTitulo.setColumns(10);
-		
-		taDescripcion = new JTextArea();
-		springLayout.putConstraint(SpringLayout.NORTH, taDescripcion, 10, SpringLayout.SOUTH, tfTitulo);
-		springLayout.putConstraint(SpringLayout.SOUTH, taDescripcion, -183, SpringLayout.SOUTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, tfTitulo, 0, SpringLayout.WEST, taDescripcion);
-		springLayout.putConstraint(SpringLayout.WEST, taDescripcion, 5, SpringLayout.EAST, lbDescripcion);
-		springLayout.putConstraint(SpringLayout.EAST, taDescripcion, -275, SpringLayout.EAST, getContentPane());
-		getContentPane().add(taDescripcion);
 		
 		cbModalidad = new JComboBox();
 		springLayout.putConstraint(SpringLayout.SOUTH, cbModalidad, -145, SpringLayout.SOUTH, getContentPane());
@@ -112,9 +105,9 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 		getContentPane().add(lbSueldo);
 		
 		JLabel lbRequisitos = new JLabel("Requisitos");
+		springLayout.putConstraint(SpringLayout.WEST, lbRequisitos, 196, SpringLayout.EAST, lbDescripcion);
 		springLayout.putConstraint(SpringLayout.EAST, cbTipo, 0, SpringLayout.EAST, lbRequisitos);
 		springLayout.putConstraint(SpringLayout.NORTH, lbRequisitos, 0, SpringLayout.NORTH, lbDescripcion);
-		springLayout.putConstraint(SpringLayout.WEST, lbRequisitos, 6, SpringLayout.EAST, taDescripcion);
 		getContentPane().add(lbRequisitos);
 		
 		cbCategoria = new JComboBox();
@@ -129,9 +122,8 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 		getContentPane().add(lbCategoria);
 		
 		tARequisitos = new JTextArea();
-		springLayout.putConstraint(SpringLayout.NORTH, tARequisitos, 0, SpringLayout.NORTH, lbDescripcion);
+		springLayout.putConstraint(SpringLayout.NORTH, tARequisitos, 36, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, tARequisitos, 6, SpringLayout.EAST, lbRequisitos);
-		springLayout.putConstraint(SpringLayout.SOUTH, tARequisitos, 0, SpringLayout.SOUTH, taDescripcion);
 		springLayout.putConstraint(SpringLayout.EAST, tARequisitos, 166, SpringLayout.EAST, lbRequisitos);
 		getContentPane().add(tARequisitos);
 		
@@ -142,6 +134,7 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 		getContentPane().add(btnCrear);
 		
 		btnSalir = new JButton("Salir");
+		springLayout.putConstraint(SpringLayout.SOUTH, tARequisitos, -152, SpringLayout.NORTH, btnSalir);
 		springLayout.putConstraint(SpringLayout.NORTH, btnSalir, 0, SpringLayout.NORTH, btnCrear);
 		springLayout.putConstraint(SpringLayout.WEST, btnSalir, 0, SpringLayout.WEST, tARequisitos);
 		btnSalir.addActionListener(this);
@@ -159,6 +152,20 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 		springLayout.putConstraint(SpringLayout.WEST, tfLugarTrabajo, 2, SpringLayout.EAST, lbLugarTrabajo);
 		getContentPane().add(tfLugarTrabajo);
 		tfLugarTrabajo.setColumns(10);
+		
+		listTareas = new JList();
+		springLayout.putConstraint(SpringLayout.NORTH, listTareas, -1, SpringLayout.NORTH, lbDescripcion);
+		springLayout.putConstraint(SpringLayout.WEST, listTareas, 6, SpringLayout.EAST, lbDescripcion);
+		listTareas.setModel(new AbstractListModel() {
+			String[] values = new String[] {"Analizar", "Desarrollar", "Toma de Datos", "Capacitacion", "Asesorar", "Documentar", "Liquidacion de Nominas"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		getContentPane().add(listTareas);
 	}
 
 	@Override
@@ -170,7 +177,9 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 			try {
 				PublicacionVO pub = new PublicacionVO();
 				pub.setTitulo(this.tfTitulo.getText());
-				pub.setDescripcion(this.taDescripcion.getText());
+				
+				for (Object itr : this.listTareas.getSelectedValues())
+					pub.agregarTareas((String) itr);
 				
 				String mod = (String) this.cbModalidad.getSelectedItem();
 				String tipo = (String) this.cbTipo.getSelectedItem();

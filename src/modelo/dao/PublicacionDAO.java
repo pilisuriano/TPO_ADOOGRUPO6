@@ -18,78 +18,51 @@ public class PublicacionDAO
 	public List<PublicacionVO> getPublicaciones() {
 		Conexion conex= new Conexion();
 		List<PublicacionVO> publicaciones= new ArrayList<PublicacionVO>();		
-		List<PostulacionVO> postulaciones= new ArrayList<PostulacionVO>();
-
 		try {	
 			String query = "SELECT * FROM publicacion;";
 			PreparedStatement statement = conex.getConnection().prepareStatement(query);
 			PreparedStatement consulta = conex.getConnection().prepareStatement("SELECT * FROM publicacion pub"
 					+ " inner join postulacion pos on pub.id = pos.publicacion_id inner join candidato c on c.id = pos.candidato_id");
 			ResultSet res = statement.executeQuery();
-			while(res.next()){
-				int i = indexOfArray(publicaciones, res.getString("titulo"));
+			while(res.next())
+			{
+				PublicacionVO publicacion= new PublicacionVO();
+				publicacion.setTitulo(res.getString("titulo"));
+				publicacion.setSueldo(Float.parseFloat(res.getString("sueldo")));
 				
-				if(i == -1) {
-					PublicacionVO publicacion= new PublicacionVO();
-					publicacion.setTitulo(res.getString("titulo"));
-					publicacion.setSueldo(Float.parseFloat(res.getString("sueldo")));
-					publicacion.setDescripcion(res.getString("descripcion"));
-					
-					String mod = res.getString("modalidadContrato");
-					
-					if (mod == "Part-Time")
-						publicacion.setModalidad(PublicacionVO.ModalidadContrato.PART_TIME);
-					else if (mod == "Full-Time")
-						publicacion.setModalidad(PublicacionVO.ModalidadContrato.FULL_TIME);
-					
-					String tipo = res.getString("tipoDeTrabajo");
-					
-					if (tipo == "Remoto")
-						publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.REMOTO);
-					else if (tipo == "Presencial")
-						publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.PRESENCIAL);
-					
-					
-					String[] requisitos = res.getString("requisitos").split(",");
-					
-					publicacion.setCategoria(res.getString("categoria"));
-					
-					for (String str : requisitos)
-						publicacion.agregarRequisito(str);
-					
-					publicacion.setActiva(res.getBoolean("activa"));
-					publicaciones.add(publicacion);
-					
-					/*postulaciones= new ArrayList<PostulacionVO>();
-					
-					PostulacionVO pos = new PostulacionVO();
-					pos.setMes(Integer.parseInt(res.getString("mes")));
-					pos.setAnio(Integer.parseInt(res.getString("anio")));
-					
-					CandidatoVO cand = new CandidatoVO();
-					cand.setNombre(res.getString("nombre"));
-					cand.setApellido(res.getString("apellido"));
-					cand.setDNI(Integer.parseInt(res.getString("DNI")));
-					pos.setCandidato(cand);				
-					postulaciones.add(pos);
-					
-					publicacion.setPostulaciones(postulaciones);
-					publicaciones.add(publicacion);*/
+				String mod = res.getString("modalidadContrato");
+				
+				if (mod.equals("part-time"))
+				{
+					publicacion.setModalidad(PublicacionVO.ModalidadContrato.PART_TIME);	
 				}
-				else {
-					/*PublicacionVO publicacion = publicaciones.get(i);
-					PostulacionVO pos = new PostulacionVO();
-					pos.setMes(Integer.parseInt(res.getString("mes")));
-					pos.setAnio(Integer.parseInt(res.getString("anio")));
-					
-					CandidatoVO cand = new CandidatoVO();
-					cand.setNombre(res.getString("nombre"));
-					cand.setApellido(res.getString("apellido"));
-					cand.setDNI(Integer.parseInt(res.getString("DNI")));
-					pos.setCandidato(cand);
-					publicacion.getPostulaciones().add(pos);
-					publicaciones.set(i, publicacion);*/
-				}				
+				else if (mod.equals("Full-Time"))
+				{
+					publicacion.setModalidad(PublicacionVO.ModalidadContrato.FULL_TIME);
+				}
+				
+				String tipo = res.getString("tipoDeTrabajo");
+				
+				if (tipo.equals("remoto"))
+					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.REMOTO);
+				else if (tipo.equals("Presencial"))
+					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.PRESENCIAL);
+				
+				
+				String[] tareas = res.getString("descripcion").split(";");
+				
+				for (String str : tareas)
+					publicacion.agregarTareas(str);
+				
+				String[] requisitos = res.getString("requisitos").split(";");
+				
+				publicacion.setCategoria(res.getString("categoria"));
+				
+				for (String str : requisitos)
+					publicacion.agregarRequisito(str);
+				
+				publicacion.setActiva(res.getBoolean("activa"));
+				publicaciones.add(publicacion);
 			}
 			res.close();
 			conex.desconectar();				
@@ -104,29 +77,71 @@ public class PublicacionDAO
 	
 	public List<PublicacionVO> getPublicacionesActivas()
 	{
-		Conexion conex = new Conexion();
-		List<PublicacionVO> pubs = new ArrayList<PublicacionVO>();
-		
-		try
-		{
-			String query = ""; // Aqui va la consulta SELECT para extraer las publicaciones con estado activo
-			PreparedStatement consulta = conex.getConnection().prepareStatement(query);
-			ResultSet res = consulta.executeQuery();
+		Conexion conex= new Conexion();
+		List<PublicacionVO> publicaciones= new ArrayList<PublicacionVO>();		
+		List<PostulacionVO> postulaciones= new ArrayList<PostulacionVO>();
+
+		try {	
+			String query = "SELECT * FROM publicacion WHERE activa = TRUE; ";
+			PreparedStatement statement = conex.getConnection().prepareStatement(query);
+			PreparedStatement consulta = conex.getConnection().prepareStatement("SELECT * FROM publicacion pub"
+					+ " inner join postulacion pos on pub.id = pos.publicacion_id inner join candidato c on c.id = pos.candidato_id");
+			ResultSet res = statement.executeQuery();
 			while(res.next())
 			{
-				PublicacionVO pub = new PublicacionVO();
-				// Se lee cada publicacion y se adjunta a la lista de pubs
+				PublicacionVO publicacion= new PublicacionVO();
+				publicacion.setTitulo(res.getString("titulo"));
+				publicacion.setSueldo(Float.parseFloat(res.getString("sueldo")));
+				
+				String mod = res.getString("modalidadContrato");
+				
+				System.out.println(mod);
+				
+				
+				if (mod.equals("part-time"))
+				{
+					publicacion.setModalidad(PublicacionVO.ModalidadContrato.PART_TIME);	
+				}
+				else if (mod.equals("Full-Time"))
+				{
+					publicacion.setModalidad(PublicacionVO.ModalidadContrato.FULL_TIME);
+				}
+				
+				String tipo = res.getString("tipoDeTrabajo");
+				
+				System.out.println(tipo);
+				
+				if (tipo.equals("remoto"))
+					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.REMOTO);
+				else if (tipo.equals("Presencial"))
+					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.PRESENCIAL);
+				
+				
+				String[] tareas = res.getString("descripcion").split(";");
+				
+				for (String str : tareas)
+					publicacion.agregarTareas(str);
+				
+				String[] requisitos = res.getString("requisitos").split(";");
+				
+				publicacion.setCategoria(res.getString("categoria"));
+				
+				for (String str : requisitos)
+					publicacion.agregarRequisito(str);
+				
+				publicacion.setActiva(res.getBoolean("activa"));
+				publicaciones.add(publicacion);
 			}
-			
 			res.close();
 			conex.desconectar();
-		}
-		catch (SQLException e) {
+			return publicaciones;
+					
+		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Error, no se conecto");
 			System.out.println(e);
 		}
 		
-		return pubs;
+		return null;
 	}
 	
 	private int indexOfArray(List<PublicacionVO> publicaciones, String job) {
@@ -151,12 +166,12 @@ public class PublicacionDAO
 			PreparedStatement statement = conex.getConnection().prepareStatement(query);
 			
 			statement.setString(1, pub.getTitulo());
-			statement.setString(2, pub.getDescripcion());
+			statement.setString(2, String.join(";", pub.getTareas()));
 			statement.setString(3, pub.getModalidadStr());
 			statement.setString(4, pub.getTipoTrabajoStr());
 			statement.setString(5, pub.getLugarTrabajo());
 			statement.setString(6, pub.getCategoria());
-			statement.setString(7, pub.getRequisitosStr());
+			statement.setString(7, String.join(";", pub.getRequisitos()));
 			statement.setFloat(8, pub.getSueldo());
 			statement.setBoolean(9, false);
 			
@@ -170,6 +185,74 @@ public class PublicacionDAO
 			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(null, "No se Registro");
 		}
+	}
+
+	public List<PublicacionVO> getPublicacionesRemotasYPartTime() {
+		
+		Conexion conex= new Conexion();
+		List<PublicacionVO> publicaciones= new ArrayList<PublicacionVO>();		
+		List<PostulacionVO> postulaciones= new ArrayList<PostulacionVO>();
+
+		try {	
+			String query = "SELECT * FROM publicacion WHERE modalidadContrato = \"part-time\" AND tipoDeTrabajo = \"remoto\"; ";
+			PreparedStatement statement = conex.getConnection().prepareStatement(query);
+			PreparedStatement consulta = conex.getConnection().prepareStatement("SELECT * FROM publicacion pub"
+					+ " inner join postulacion pos on pub.id = pos.publicacion_id inner join candidato c on c.id = pos.candidato_id");
+			ResultSet res = statement.executeQuery();
+			while(res.next())
+			{
+				PublicacionVO publicacion= new PublicacionVO();
+				publicacion.setTitulo(res.getString("titulo"));
+				publicacion.setSueldo(Float.parseFloat(res.getString("sueldo")));
+				
+				String mod = res.getString("modalidadContrato");
+				
+				System.out.println(mod);
+				
+				
+				if (mod.equals("part-time"))
+				{
+					publicacion.setModalidad(PublicacionVO.ModalidadContrato.PART_TIME);	
+				}
+				else if (mod.equals("Full-Time"))
+				{
+					publicacion.setModalidad(PublicacionVO.ModalidadContrato.FULL_TIME);
+				}
+				
+				String tipo = res.getString("tipoDeTrabajo");
+				
+				System.out.println(tipo);
+				
+				if (tipo.equals("remoto"))
+					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.REMOTO);
+				else if (tipo.equals("Presencial"))
+					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.PRESENCIAL);
+				
+				
+				String[] tareas = res.getString("descripcion").split(";");
+				
+				for (String str : tareas)
+					publicacion.agregarTareas(str);
+				
+				String[] requisitos = res.getString("requisitos").split(";");
+				
+				publicacion.setCategoria(res.getString("categoria"));
+				
+				for (String str : requisitos)
+					publicacion.agregarRequisito(str);
+				
+				publicacion.setActiva(res.getBoolean("activa"));
+				publicaciones.add(publicacion);
+			}
+			res.close();
+			conex.desconectar();				
+					
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Error, no se conecto");
+			System.out.println(e);
+		}
+		
+		return publicaciones;
 	}
 	
 }

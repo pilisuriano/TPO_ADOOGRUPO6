@@ -17,19 +17,21 @@ public class PublicacionVO
 		REMOTO,
 	};
 	
+	
 	private List<PostulacionVO> postulaciones;
 	private String titulo;
-	private String descripcion;
+	private List<String> tareas;
 	private ModalidadContrato modalidad;
 	private TipoTrabajo tipo;
 	private String lugarTrabajo;
 	private String categoria;
-	private ArrayList<String> requisitos;
+	private List<String> requisitos;
 	private float sueldo;
 	private boolean activa;
 	
 	public PublicacionVO()
 	{
+		tareas = new ArrayList<String>();
 		requisitos = new ArrayList<String>();
 		tipo = TipoTrabajo.PRESENCIAL;
 		modalidad = ModalidadContrato.FULL_TIME;
@@ -51,17 +53,28 @@ public class PublicacionVO
 			return "Remoto";
 	}
 	
-	public String getRequisitosStr()
+	public List<String> getRequisitos()
 	{
-		return String.join(" ", this.requisitos);
+		return this.requisitos;
 	}
 	
-	public String getDescripcion() {
-		return descripcion;
+	public boolean esRemotoYPartTime()
+	{
+		return this.modalidad == ModalidadContrato.PART_TIME &&
+				this.tipo == TipoTrabajo.REMOTO;
+	}
+	
+	public String getTareasStr() {
+		return String.join(" ", tareas);
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public List<String> getTareas()
+	{
+		return this.tareas;
+	}
+	
+	public void setDescripcion(List<String> tareas) {
+		this.tareas = tareas;
 	}
 
 	public String getLugarTrabajo() {
@@ -128,5 +141,10 @@ public class PublicacionVO
 
 	public void setActiva(boolean activa) {
 		this.activa = activa;
+	}
+
+	public void agregarTareas(String str) {
+		// TODO Auto-generated method stub
+		this.tareas.add(str);
 	}
 }

@@ -2,6 +2,10 @@ package vista;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.swing.JInternalFrame;
 import javax.swing.SpringLayout;
@@ -67,13 +71,13 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 		springLayout.putConstraint(SpringLayout.WEST, lbApellido, 0, SpringLayout.WEST, lbNombre);
 		getContentPane().add(lbApellido);
 		
-		JLabel lbFechaNac = new JLabel("Fecha Nacimiento");
+		JLabel lbFechaNac = new JLabel("Fecha Nacimiento (Dia/Mes/Anio)");
 		springLayout.putConstraint(SpringLayout.NORTH, lbFechaNac, 6, SpringLayout.SOUTH, lbApellido);
 		springLayout.putConstraint(SpringLayout.WEST, lbFechaNac, 0, SpringLayout.WEST, lbNombre);
 		getContentPane().add(lbFechaNac);
 		
 		JLabel lbNacionalidad = new JLabel("Nacionalidad");
-		springLayout.putConstraint(SpringLayout.NORTH, lbNacionalidad, 6, SpringLayout.SOUTH, lbFechaNac);
+		springLayout.putConstraint(SpringLayout.NORTH, lbNacionalidad, 25, SpringLayout.SOUTH, lbApellido);
 		springLayout.putConstraint(SpringLayout.WEST, lbNacionalidad, 0, SpringLayout.WEST, lbNombre);
 		getContentPane().add(lbNacionalidad);
 		
@@ -120,25 +124,25 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 		tfApellido.setColumns(10);
 		
 		tfFechaNac = new JTextField();
-		springLayout.putConstraint(SpringLayout.EAST, tfApellido, 0, SpringLayout.EAST, tfFechaNac);
-		springLayout.putConstraint(SpringLayout.NORTH, tfFechaNac, 0, SpringLayout.NORTH, lbFechaNac);
+		springLayout.putConstraint(SpringLayout.NORTH, tfFechaNac, 3, SpringLayout.SOUTH, tfApellido);
 		springLayout.putConstraint(SpringLayout.WEST, tfFechaNac, 6, SpringLayout.EAST, lbFechaNac);
+		springLayout.putConstraint(SpringLayout.EAST, tfApellido, 0, SpringLayout.EAST, tfFechaNac);
 		getContentPane().add(tfFechaNac);
 		tfFechaNac.setColumns(10);
 		
 		tfNacionalidad = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, tfNacionalidad, 6, SpringLayout.SOUTH, lbFechaNac);
+		springLayout.putConstraint(SpringLayout.NORTH, tfNacionalidad, 0, SpringLayout.SOUTH, tfFechaNac);
 		springLayout.putConstraint(SpringLayout.EAST, tfNacionalidad, 0, SpringLayout.EAST, tfFechaNac);
 		getContentPane().add(tfNacionalidad);
 		tfNacionalidad.setColumns(10);
 		
 		btnRegistrar = new JButton("Registrar");
 		springLayout.putConstraint(SpringLayout.SOUTH, btnRegistrar, -10, SpringLayout.SOUTH, getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, btnRegistrar, 0, SpringLayout.EAST, lbFechaNac);
 		btnRegistrar.addActionListener(this);
 		getContentPane().add(btnRegistrar);
 		
 		btnSalir = new JButton("Salir");
+		springLayout.putConstraint(SpringLayout.EAST, btnRegistrar, -6, SpringLayout.WEST, btnSalir);
 		springLayout.putConstraint(SpringLayout.NORTH, btnSalir, 0, SpringLayout.NORTH, btnRegistrar);
 		springLayout.putConstraint(SpringLayout.WEST, btnSalir, 0, SpringLayout.WEST, tfNombre);
 		btnSalir.addActionListener(this);
@@ -187,6 +191,11 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 				CandidatoVO cand = new CandidatoVO();
 				cand.setNombre(this.tfNombre.getText());
 				cand.setApellido(this.tfApellido.getText());
+				
+				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				Date date = new SimpleDateFormat("dd/MM/yyyy").parse(this.tfFechaNac.getText());
+			    System.out.println();
+				
 				cand.agregarNacionalidad(this.tfNacionalidad.getText());
 				cand.setDNI(Integer.parseInt(this.tfDNI.getText()));
 				

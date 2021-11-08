@@ -8,9 +8,7 @@ public class Principal {
 	VentanaPrincipal mainWindow;
 	CandidatoController coordCandidatos;
 	PublicacionController coorPublicacion;
-	
-	VentanaReporte miVentanaReporte;
-	ReporteController miCoordinador;
+	ReporteController coordReporte;
 
 	/**
 	 * @param args
@@ -29,11 +27,13 @@ public class Principal {
 		this.mainWindow = new VentanaPrincipal();
 		this.coordCandidatos = new CandidatoController();
 		this.coorPublicacion = new PublicacionController();
+		this.coordReporte = new ReporteController();
 		
 		/*Se establecen las relaciones entre clases*/
 		
 		this.mainWindow.setCandidatoController(coordCandidatos);
 		this.mainWindow.setPublicacionesController(coorPublicacion);
+		this.mainWindow.setReporteController(coordReporte);
 		this.mainWindow.setVisible(true);
 		
 		/*Se establecen relaciones con la clase coordinador*/

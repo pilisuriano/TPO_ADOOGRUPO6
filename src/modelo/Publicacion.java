@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -15,6 +16,21 @@ public class Publicacion {
 		try {				
 			miPublicacionDAO = new PublicacionDAO();
 			return miPublicacionDAO.getPublicaciones();			
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
+		}
+					
+		return null;
+	}
+	
+	public List<PublicacionVO> getPublicacioneRemotasYPartTime()
+	{
+		PublicacionDAO miPublicacionDAO;
+		
+		try {				
+			miPublicacionDAO = new PublicacionDAO();
+			return miPublicacionDAO.getPublicacionesRemotasYPartTime();
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
 		}
