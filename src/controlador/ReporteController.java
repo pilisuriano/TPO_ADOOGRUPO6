@@ -68,7 +68,7 @@ public class ReporteController {
 	}
 	
 	
-	public List<String> primerasMCategoriasTop(int M)
+	public List<String> getTopMCategoriasSeleccionadasPublicaciones(int M)
 	{
 		List<String> categorias = new ArrayList<String>();
 		List<PublicacionVO> pubs = publicacion.getPublicaciones();
@@ -110,7 +110,7 @@ public class ReporteController {
 		return categorias;
 	}
 	
-	public PublicacionVO getTrabajoMasAccesible()
+	public ReporteVO getOfertaMasAccesible()
 	{
 		List<PublicacionVO> pubs = publicacion.getPublicacioneRemotasYPartTime();
 		
@@ -118,6 +118,7 @@ public class ReporteController {
 			return null;
 		
 		PublicacionVO min = pubs.get(0);
+		ReporteVO mejorOferta = new ReporteVO();
 		
 		for (PublicacionVO itr : pubs)
 		{	
@@ -130,10 +131,12 @@ public class ReporteController {
 				min = itr;
 		}
 		
-		return min;
+		mejorOferta.setTitulo_oferta(min.getTitulo());
+		
+		return mejorOferta;
 	}
 	
-	public PublicacionVO getOfertaMasExigente()
+	public ReporteVO getOfertaMasExigente()
 	{
 		List<PublicacionVO> pubs = publicacion.getPublicaciones();
 		
@@ -154,6 +157,9 @@ public class ReporteController {
 				pubMasExigente = itr;
 		}
 		
-		return pubMasExigente;
+		ReporteVO masExigente = new ReporteVO();
+		masExigente.setTitulo_oferta(pubMasExigente.getTitulo());
+		
+		return masExigente;
 	}
 }

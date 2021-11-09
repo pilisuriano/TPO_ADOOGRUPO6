@@ -163,10 +163,10 @@ public class VentanaReporte extends JFrame implements ActionListener {
 				if (mValue.isEmpty())
 				{
 					// Por defecto obtengo las primeras 5
-					topMCategorias = this.miCoordinador.primerasMCategoriasTop(5);
+					topMCategorias = this.miCoordinador.getTopMCategoriasSeleccionadasPublicaciones(5);
 				}
 				else
-					topMCategorias = this.miCoordinador.primerasMCategoriasTop(Integer.parseInt(mValue));
+					topMCategorias = this.miCoordinador.getTopMCategoriasSeleccionadasPublicaciones(Integer.parseInt(mValue));
 				
 				for (String cat : topMCategorias)
 					this.tATopMCategorias.append(cat + "\n");
@@ -178,15 +178,15 @@ public class VentanaReporte extends JFrame implements ActionListener {
 			
 			/* Oferta Mas Accessible
 			 */
-			PublicacionVO mejorTrabajo = this.miCoordinador.getTrabajoMasAccesible();
-			this.lbResultadoOfertaMasAccesible.setText(mejorTrabajo.getTitulo());
+			ReporteVO mejorTrabajo = this.miCoordinador.getOfertaMasAccesible();
+			this.lbResultadoOfertaMasAccesible.setText(mejorTrabajo.getTitulo_oferta());
 			
 			/*
 			 * Oferta Mas Exigente
 			 */
 			
-			PublicacionVO masExigente = this.miCoordinador.getOfertaMasExigente();
-			this.lbResultadoOfertaMasExigente.setText(masExigente.getTitulo());	
+			ReporteVO masExigente = this.miCoordinador.getOfertaMasExigente();
+			this.lbResultadoOfertaMasExigente.setText(masExigente.getTitulo_oferta());	
 		}
 	}
 }

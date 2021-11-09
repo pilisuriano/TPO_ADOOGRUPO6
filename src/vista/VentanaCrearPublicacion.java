@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.SpringLayout;
 
 import controlador.PublicacionController;
+import modelo.Publicacion;
 import modelo.vo.PublicacionVO;
 
 import javax.swing.JLabel;
@@ -185,14 +186,14 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 				String tipo = (String) this.cbTipo.getSelectedItem();
 				
 				if (mod == "Part-Time")
-					pub.setModalidad(PublicacionVO.ModalidadContrato.PART_TIME);
+					pub.setModalidad(Publicacion.ModalidadContrato.PART_TIME);
 				else if (mod == "Full-Time")
-					pub.setModalidad(PublicacionVO.ModalidadContrato.FULL_TIME);
+					pub.setModalidad(Publicacion.ModalidadContrato.FULL_TIME);
 				
 				if (tipo == "Remoto")
-					pub.setTipoTrabajo(PublicacionVO.TipoTrabajo.REMOTO);
+					pub.setTipoTrabajo(Publicacion.TipoTrabajo.REMOTO);
 				else if (tipo == "Presencial")
-					pub.setTipoTrabajo(PublicacionVO.TipoTrabajo.PRESENCIAL);
+					pub.setTipoTrabajo(Publicacion.TipoTrabajo.PRESENCIAL);
 				
 				
 				for (String str : this.tARequisitos.getText().split("\n"))

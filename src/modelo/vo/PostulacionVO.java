@@ -4,8 +4,9 @@ public class PostulacionVO
 {
 	private Integer mes;
 	private Integer anio;
+	private Integer dia;
 	private CandidatoVO candidato;
-	private Float remuneracion;
+	private float renumeracion;
 	
 	public Integer getMes() {
 		return mes;
@@ -25,11 +26,16 @@ public class PostulacionVO
 	public void setCandidato(CandidatoVO candidato) {
 		this.candidato = candidato;
 	}
-	public void setRemuneracion(Integer remuneracion) {
-		this.remuneracion = remuneracion;
+	public float getRenumeracion() {
+		return renumeracion;
 	}
-
-	public float getRemuneracion() {
-		return remuneracion;
+	public void setRenumeracion(float renumeracion) {
+		this.renumeracion = renumeracion;
+	}
+	public Integer getDia() {
+		return dia;
+	}
+	public void setDia(Integer dia) {
+		this.dia = dia;
 	}
 }

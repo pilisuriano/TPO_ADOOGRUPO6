@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import modelo.Publicacion;
 import modelo.conexion.Conexion;
 import modelo.vo.*;
 
@@ -34,19 +35,19 @@ public class PublicacionDAO
 				
 				if (mod.equals("part-time"))
 				{
-					publicacion.setModalidad(PublicacionVO.ModalidadContrato.PART_TIME);	
+					publicacion.setModalidad(Publicacion.ModalidadContrato.PART_TIME);	
 				}
 				else if (mod.equals("Full-Time"))
 				{
-					publicacion.setModalidad(PublicacionVO.ModalidadContrato.FULL_TIME);
+					publicacion.setModalidad(Publicacion.ModalidadContrato.FULL_TIME);
 				}
 				
 				String tipo = res.getString("tipoDeTrabajo");
 				
 				if (tipo.equals("remoto"))
-					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.REMOTO);
+					publicacion.setTipoTrabajo(Publicacion.TipoTrabajo.REMOTO);
 				else if (tipo.equals("Presencial"))
-					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.PRESENCIAL);
+					publicacion.setTipoTrabajo(Publicacion.TipoTrabajo.PRESENCIAL);
 				
 				
 				String[] tareas = res.getString("descripcion").split(";");
@@ -100,11 +101,11 @@ public class PublicacionDAO
 				
 				if (mod.equals("part-time"))
 				{
-					publicacion.setModalidad(PublicacionVO.ModalidadContrato.PART_TIME);	
+					publicacion.setModalidad(Publicacion.ModalidadContrato.PART_TIME);	
 				}
 				else if (mod.equals("Full-Time"))
 				{
-					publicacion.setModalidad(PublicacionVO.ModalidadContrato.FULL_TIME);
+					publicacion.setModalidad(Publicacion.ModalidadContrato.FULL_TIME);
 				}
 				
 				String tipo = res.getString("tipoDeTrabajo");
@@ -112,9 +113,9 @@ public class PublicacionDAO
 				System.out.println(tipo);
 				
 				if (tipo.equals("remoto"))
-					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.REMOTO);
+					publicacion.setTipoTrabajo(Publicacion.TipoTrabajo.REMOTO);
 				else if (tipo.equals("Presencial"))
-					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.PRESENCIAL);
+					publicacion.setTipoTrabajo(Publicacion.TipoTrabajo.PRESENCIAL);
 				
 				
 				String[] tareas = res.getString("descripcion").split(";");
@@ -144,15 +145,6 @@ public class PublicacionDAO
 		return null;
 	}
 	
-	private int indexOfArray(List<PublicacionVO> publicaciones, String job) {
-		int index = -1;
-		for(int i = 0; i< publicaciones.size(); i++) {
-			if(job.equals(publicaciones.get(i).getTitulo()))
-					index = i;
-		}
-		return index;
-	}
-
 	public void registrarPublicacion(PublicacionVO pub)
 	{
 		Conexion conex = new Conexion();
@@ -212,11 +204,11 @@ public class PublicacionDAO
 				
 				if (mod.equals("part-time"))
 				{
-					publicacion.setModalidad(PublicacionVO.ModalidadContrato.PART_TIME);	
+					publicacion.setModalidad(Publicacion.ModalidadContrato.PART_TIME);	
 				}
 				else if (mod.equals("Full-Time"))
 				{
-					publicacion.setModalidad(PublicacionVO.ModalidadContrato.FULL_TIME);
+					publicacion.setModalidad(Publicacion.ModalidadContrato.FULL_TIME);
 				}
 				
 				String tipo = res.getString("tipoDeTrabajo");
@@ -224,9 +216,9 @@ public class PublicacionDAO
 				System.out.println(tipo);
 				
 				if (tipo.equals("remoto"))
-					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.REMOTO);
+					publicacion.setTipoTrabajo(Publicacion.TipoTrabajo.REMOTO);
 				else if (tipo.equals("Presencial"))
-					publicacion.setTipoTrabajo(PublicacionVO.TipoTrabajo.PRESENCIAL);
+					publicacion.setTipoTrabajo(Publicacion.TipoTrabajo.PRESENCIAL);
 				
 				
 				String[] tareas = res.getString("descripcion").split(";");

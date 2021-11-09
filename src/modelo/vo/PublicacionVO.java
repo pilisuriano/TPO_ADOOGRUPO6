@@ -3,21 +3,11 @@ package modelo.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.Publicacion.ModalidadContrato;
+import modelo.Publicacion.TipoTrabajo;
+
 public class PublicacionVO 
 {
-	public enum ModalidadContrato
-	{
-		PART_TIME,
-		FULL_TIME,
-	};
-	
-	public enum TipoTrabajo
-	{
-		PRESENCIAL,
-		REMOTO,
-	};
-	
-	
 	private List<PostulacionVO> postulaciones;
 	private String titulo;
 	private List<String> tareas;
