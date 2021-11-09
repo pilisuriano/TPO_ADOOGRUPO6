@@ -22,7 +22,7 @@ public class PublicacionDAO
 			String query = "SELECT * FROM publicacion;";
 			PreparedStatement statement = conex.getConnection().prepareStatement(query);
 			PreparedStatement consulta = conex.getConnection().prepareStatement("SELECT * FROM publicacion pub"
-					+ " inner join postulacion pos on pub.id = pos.publicacion_id inner join candidato c on c.id = pos.candidato_id");
+					+ " inner join PubliPostu pos on pub.id = pos.publicacion inner join Postulante c on c.dni = pos.postulante");
 			ResultSet res = statement.executeQuery();
 			while(res.next())
 			{

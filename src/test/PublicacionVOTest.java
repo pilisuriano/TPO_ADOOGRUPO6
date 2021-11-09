@@ -1,4 +1,4 @@
-package modelo;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +14,7 @@ import modelo.vo.PublicacionVO;
 import modelo.vo.PublicacionVO.ModalidadContrato;
 import modelo.vo.PublicacionVO.TipoTrabajo;
 
-public class PublicacionTest {
+public class PublicacionVOTest {
 
 	@Test
 	public void agregarTarea() {
