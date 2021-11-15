@@ -5,7 +5,9 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ CandidatoVOTest.class, PostulacionVOTest.class, PublicacionVOTest.class, ReporteVOTest.class, PublicacionTest.class })
+@SuiteClasses({ CandidatoVOTest.class, PostulacionVOTest.class, PublicacionVOTest.class, 
+				ReporteVOTest.class, PublicacionTest.class, ReporteControllerTest.class,
+				GeneradorImagenControllerTest.class })
 public class AllTests {
 
 }
