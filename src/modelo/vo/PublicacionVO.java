@@ -28,6 +28,7 @@ public class PublicacionVO
 	private List<String> requisitos;
 	private float sueldo;
 	private boolean activa;
+	private String id;
 	
 	public PublicacionVO()
 	{
@@ -35,6 +36,14 @@ public class PublicacionVO
 		requisitos = new ArrayList<String>();
 		tipo = TipoTrabajo.PRESENCIAL;
 		modalidad = ModalidadContrato.FULL_TIME;
+	}
+	
+	public String getId() {
+		return this.id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	public String getModalidadStr()

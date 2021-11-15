@@ -28,6 +28,7 @@ public class PublicacionDAO
 			while(res.next())
 			{
 				PublicacionVO publicacion= new PublicacionVO();
+				publicacion.setId(res.getString("idPublicacion"));
 				publicacion.setTitulo(res.getString("titulo"));
 				publicacion.setSueldo(Float.parseFloat(res.getString("sueldo")));
 				
@@ -85,8 +86,11 @@ public class PublicacionDAO
 					+ " extract(month from fechaPostulacion) as mes, dni"
 					+ " FROM publicacion pub"
 					+ " inner join PubliPostu pos on pub.idPublicacion = pos.publicacion "
-					+ " inner join Postulante c on c.dni = pos.postulante");
+					+ " inner join Postulante c on c.dni = pos.postulante "
+					+ " where idPublicacion = ?");
 			
+			consulta.setString(1, pub.getId());
+
 			ResultSet res = consulta.executeQuery();
 			
 			while(res.next()) {

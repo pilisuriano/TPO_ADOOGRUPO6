@@ -22,20 +22,22 @@ public class ReporteControllerTest {
 		assertThat(publicacion, instanceOf(PublicacionVO.class));
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void verificarMayorOfertasLaboralesMesValido() {
 		ReporteController reporte = new ReporteController();
 		ReporteVO reporteGenerado = reporte.getReporteMayorOfertasLaborales("10", "2021");
 		
-		System.out.println(reporteGenerado.getTitulo_oferta());
+		assertThat(reporteGenerado, instanceOf(ReporteVO.class));
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void verificarMayorOfertasLaboralesMesInvalido() {
 		ReporteController reporte = new ReporteController();
 		ReporteVO reporteGenerado = reporte.getReporteMayorOfertasLaborales("16", "2021");
 		
-		System.out.println(reporteGenerado.getTitulo_oferta());
+		assertThat(reporteGenerado, instanceOf(ReporteVO.class));
 	}
 	
 	@Test
@@ -43,9 +45,7 @@ public class ReporteControllerTest {
 		ReporteController reporte = new ReporteController();
 		PublicacionVO publicacion = reporte.getTrabajoMasAccesible();
 		
-		System.out.println(publicacion.getCategoria());
-		
-		System.out.println(publicacion.getTitulo());
+		assertThat(publicacion, instanceOf(PublicacionVO.class));
 	}
 	
 	@Test
