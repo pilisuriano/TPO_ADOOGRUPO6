@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import controlador.CandidatoController;
 import modelo.conexion.Conexion;
 import modelo.vo.*;
 
@@ -75,6 +76,39 @@ public class PublicacionDAO
 		return publicaciones;
 	}
 	
+	public List<PostulacionVO> getPostulaciones(PublicacionVO pub) {
+		Conexion conex= new Conexion();
+		CandidatoController candidatoController = new CandidatoController();
+		List<PostulacionVO> postulaciones = new ArrayList<PostulacionVO>();		
+		try {	
+			PreparedStatement consulta = conex.getConnection().prepareStatement("SELECT idPublicacion, extract(year from fechaPostulacion) as anio, "
+					+ " extract(month from fechaPostulacion) as mes, dni"
+					+ " FROM publicacion pub"
+					+ " inner join PubliPostu pos on pub.idPublicacion = pos.publicacion "
+					+ " inner join Postulante c on c.dni = pos.postulante");
+			
+			ResultSet res = consulta.executeQuery();
+			
+			while(res.next()) {
+				PostulacionVO postulacion = new PostulacionVO();
+				postulacion.setAnio(Integer.valueOf(res.getString("anio")));				
+				postulacion.setMes(Integer.valueOf(res.getString("mes")));
+				
+				CandidatoVO candidato = candidatoController.buscarCandidato(Integer.valueOf(res.getString("dni")));
+				postulacion.setCandidato(candidato);
+				
+				postulaciones.add(postulacion);
+			}
+			res.close();
+			conex.desconectar();				
+					
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Error, no se conecto");
+			System.out.println(e);
+		}
+		return postulaciones;
+	}
+	
 	public List<PublicacionVO> getPublicacionesActivas()
 	{
 		Conexion conex= new Conexion();
@@ -84,8 +118,6 @@ public class PublicacionDAO
 		try {	
 			String query = "SELECT * FROM publicacion WHERE activa = TRUE; ";
 			PreparedStatement statement = conex.getConnection().prepareStatement(query);
-			PreparedStatement consulta = conex.getConnection().prepareStatement("SELECT * FROM publicacion pub"
-					+ " inner join postulacion pos on pub.id = pos.publicacion_id inner join candidato c on c.id = pos.candidato_id");
 			ResultSet res = statement.executeQuery();
 			while(res.next())
 			{
@@ -191,7 +223,6 @@ public class PublicacionDAO
 		
 		Conexion conex= new Conexion();
 		List<PublicacionVO> publicaciones= new ArrayList<PublicacionVO>();		
-		List<PostulacionVO> postulaciones= new ArrayList<PostulacionVO>();
 
 		try {	
 			String query = "SELECT * FROM publicacion WHERE modalidadContrato = \"part-time\" AND tipoDeTrabajo = \"remoto\"; ";

@@ -62,4 +62,15 @@ public class Publicacion {
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	public List<PostulacionVO> getPostulaciones(PublicacionVO pub) {
+		PublicacionDAO pubDAO;
+		try {				
+			pubDAO = new PublicacionDAO();
+			return pubDAO.getPostulaciones(pub);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
+		}
+		return null;
+	}
 }

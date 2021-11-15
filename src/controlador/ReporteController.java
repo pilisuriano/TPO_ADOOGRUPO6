@@ -46,7 +46,7 @@ public class ReporteController {
 		int mayor = 0;
 		for(PublicacionVO ol : publicaciones) {
 			int cant = 0;
-			for(PostulacionVO postulacion : ol.getPostulaciones()) {
+			for(PostulacionVO postulacion : publicacion.getPostulaciones(ol)) {
 				if(postulacion.getAnio().toString().equals(anio.trim())) {
 					if(!mes.trim().equals("") && postulacion.getMes().toString().equals(mes.trim())) {
 						cant++;
