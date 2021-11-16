@@ -3,8 +3,6 @@ package patrones;
 import java.util.ArrayList;
 import java.util.List;
 
-import modelo.Postulacion;
-import modelo.Publicacion;
 import modelo.vo.PostulacionVO;
 import modelo.vo.PublicacionVO;
 
@@ -36,6 +34,7 @@ public class SistemaNotificador
 	private SistemaNotificador()
 	{
 		observables = new ArrayList<IObservable>();
+		notificador = new Notificador();
 	}
 
 	public void enviarNotificacion(Notificacion not, MedioNotificacion medioNotificacion) {
@@ -59,7 +58,7 @@ public class SistemaNotificador
 		this.notificador.notificar(not);
 	}
 
-	public void postulacionRealizada(PostulacionVO post, PublicacionVO pub) {
+	public void notificarPostulacion(PostulacionVO post, PublicacionVO pub) {
 		// TODO Auto-generated method stub
 		for (IObservable itr : this.observables)
 			itr.postulacionRealizada(post, pub);

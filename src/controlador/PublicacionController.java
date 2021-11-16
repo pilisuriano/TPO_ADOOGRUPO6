@@ -8,7 +8,6 @@ import modelo.vo.PostulacionVO;
 import modelo.vo.PublicacionVO;
 import patrones.ExportadorImagen;
 import patrones.FormatoExportar;
-import patrones.SistemaNotificador;
 import patrones.StrategyImagen;
 import vista.VentanaCrearPublicacion;
 import vista.VentanaVerPostulantes;

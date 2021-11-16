@@ -4,7 +4,11 @@ public class NotificacionEmail implements IEstrategiaNotificable
 {
 	private IAdapterEmail adapterEmail;
 	
-	@Override
+	public NotificacionEmail()
+	{
+		adapterEmail = new AdapterMailLib();
+	}
+	
 	public void enviar(Notificacion not) {
 		// TODO Auto-generated method stub
 		this.adapterEmail.enviarMail(not);

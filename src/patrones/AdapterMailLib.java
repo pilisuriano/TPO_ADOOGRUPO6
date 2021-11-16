@@ -6,6 +6,7 @@ public class AdapterMailLib implements IAdapterEmail {
 	public void enviarMail(Notificacion not) {
 		// TODO Auto-generated method stub
 		System.out.println("Usando Libreria EmailSender");
+		System.out.println(not.getMsj());
 	}
 
 }

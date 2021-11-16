@@ -1,6 +1,8 @@
 package vista;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JInternalFrame;
@@ -21,7 +23,7 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class VentanaVerPostulantes extends JFrame implements ListSelectionListener {
+public class VentanaVerPostulantes extends JFrame implements ListSelectionListener, ActionListener {
 
 	/**
 	 * Launch the application.
@@ -46,6 +48,7 @@ public class VentanaVerPostulantes extends JFrame implements ListSelectionListen
 	private JList listPostulantes;
 	private CandidatoVO candActual;
 	private JTextArea tAInformacionPostulante;
+	private JButton btnSalir;
 
 	/**
 	 * Create the frame.
@@ -93,9 +96,10 @@ public class VentanaVerPostulantes extends JFrame implements ListSelectionListen
 		springLayout.putConstraint(SpringLayout.NORTH, lbDetallesPostulante, 0, SpringLayout.NORTH, lbPublicaciones);
 		getContentPane().add(lbDetallesPostulante);
 		
-		JButton btnSalir = new JButton("Salir");
+		btnSalir = new JButton("Salir");
 		springLayout.putConstraint(SpringLayout.WEST, btnSalir, 185, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, btnSalir, -10, SpringLayout.SOUTH, getContentPane());
+		btnSalir.addActionListener(this);
 		getContentPane().add(btnSalir);
 
 	}
@@ -154,5 +158,12 @@ public class VentanaVerPostulantes extends JFrame implements ListSelectionListen
 		}
 		
 		this.listPublicaciones.setModel(titulosPubs);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		if (arg0.getSource().equals(btnSalir))
+			this.dispose();
 	}
 }

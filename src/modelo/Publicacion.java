@@ -5,14 +5,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import Mockeador.Mockeador;
-import modelo.dao.PublicacionDAO;
 import modelo.vo.PublicacionVO;
 import patrones.MedioNotificacion;
 
 
 public class Publicacion
 {
-
 	public enum ModalidadContrato
 	{
 		PART_TIME,
@@ -25,6 +23,7 @@ public class Publicacion
 		REMOTO,
 	};
 	
+	private int idPublicacion;
 	private List<Postulacion> postulaciones;
 	private String titulo;
 	private List<String> tareas;
@@ -36,29 +35,8 @@ public class Publicacion
 	private float sueldo;
 	private boolean activa;
 	private MedioNotificacion medioNoti;
+	private Empresa empresa;
 
-	public Publicacion(List<Postulacion> postulaciones,
-					   String titulo,
-					   List<String> tareas,
-					   ModalidadContrato modalidad,
-					   TipoTrabajo tipo,
-					   String lugarTrabajo,
-					   String categoria,
-					   List<String> requisitos,
-					   float sueldo,
-					   boolean activa) {
-		this.postulaciones = postulaciones;
-		this.titulo = titulo;
-		this.tareas = tareas;
-		this.modalidad = modalidad;
-		this.tipo = tipo;
-		this.lugarTrabajo = lugarTrabajo;
-		this.categoria = categoria;
-		this.requisitos = requisitos;
-		this.sueldo = sueldo;
-		this.activa = activa;
-	}
-	
 	public Publicacion()
 	{
 		this.tareas = new ArrayList<String>();
@@ -101,11 +79,8 @@ public class Publicacion
 	
 	public void registrarPublicacion(PublicacionVO pub)
 	{
-		PublicacionDAO pubDAO;
-		
 		try {				
-			pubDAO = new PublicacionDAO();
-			pubDAO.registrarPublicacion(pub);
+			Mockeador.getInstancia().registrarPublicacion(pub);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
 		}
@@ -203,5 +178,21 @@ public class Publicacion
 
 	public void setMedioNotificacion(MedioNotificacion medioNoti) {
 		this.medioNoti = medioNoti;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
+	public int getIdPublicacion() {
+		return idPublicacion;
+	}
+
+	public void setIdPublicacion(int idPublicacion) {
+		this.idPublicacion = idPublicacion;
 	}
 }

@@ -36,6 +36,7 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 	private JTextField tfDNI;
 
 	private CandidatoController coordinadorCandidatos;
+	private JTextField tfEmail;
 	
 	/**
 	 * Launch the application.
@@ -177,6 +178,17 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 		springLayout.putConstraint(SpringLayout.WEST, tfDNI, 0, SpringLayout.WEST, tfNombre);
 		getContentPane().add(tfDNI);
 		tfDNI.setColumns(10);
+		
+		tfEmail = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, tfEmail, 6, SpringLayout.SOUTH, tfDNI);
+		springLayout.putConstraint(SpringLayout.WEST, tfEmail, 0, SpringLayout.WEST, tfNombre);
+		getContentPane().add(tfEmail);
+		tfEmail.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Email");
+		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 0, SpringLayout.WEST, lbNombre);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel, 0, SpringLayout.SOUTH, tfEmail);
+		getContentPane().add(lblNewLabel);
 
 	}
 
@@ -192,12 +204,14 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 				cand.setNombre(this.tfNombre.getText());
 				cand.setApellido(this.tfApellido.getText());
 				
-				DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				Date date = new SimpleDateFormat("dd/MM/yyyy").parse(this.tfFechaNac.getText());
-			    System.out.println();
+			    System.out.println(date.toString());
+			    
+			    cand.setFechaNacimiento(date);
 				
 				cand.agregarNacionalidad(this.tfNacionalidad.getText());
 				cand.setDNI(Integer.parseInt(this.tfDNI.getText()));
+				cand.setEmail(this.tfEmail.getText());
 				
 				for (JRadioButton btn : this.rdBtnIdiomas)
 				{
