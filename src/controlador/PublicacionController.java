@@ -10,6 +10,7 @@ import patrones.ExportadorImagen;
 import patrones.FormatoExportar;
 import patrones.StrategyImagen;
 import vista.VentanaCrearPublicacion;
+import vista.VentanaExportarImagenes;
 import vista.VentanaVerPostulantes;
 import vista.VentanaVerPublicaciones;
 
@@ -22,6 +23,7 @@ public class PublicacionController
 	
 	Publicacion modeloPublicacion;
 	Postulacion modeloPostulacion;
+	private VentanaExportarImagenes exportarImagenesVentana;
 	
 	public PublicacionController()
 	{
@@ -94,5 +96,13 @@ public class PublicacionController
 	public void registrarPostulacion(PublicacionVO pub, PostulacionVO post)
 	{
 		this.modeloPostulacion.registrarPostulacion(pub, post);
+	}
+
+	public void mostrarVentanaExportarImagenes() {
+		// TODO Auto-generated method stub
+		exportarImagenesVentana = new VentanaExportarImagenes();
+		exportarImagenesVentana.setCoordPublicaciones(this);
+		this.exportarImagenesVentana.llenarDatosPublicaciones();
+		this.exportarImagenesVentana.setVisible(true);
 	}
 }

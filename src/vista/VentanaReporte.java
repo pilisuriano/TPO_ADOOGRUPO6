@@ -1,6 +1,5 @@
 package vista;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
@@ -11,10 +10,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import controlador.ReporteController;
-import modelo.vo.PublicacionVO;
 import modelo.vo.ReporteVO;
 
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;

@@ -32,6 +32,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	private PublicacionController pubCoordinador;
 	private ReporteController reporteCoordinador;
 	private JButton btnVerReportes;
+	private JButton btnExportarImagenes;
 	
 	/**
 	 * Launch the application.
@@ -54,7 +55,7 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 	 */
 	public VentanaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 654, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -100,6 +101,12 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		sl_contentPane.putConstraint(SpringLayout.NORTH, btnVerReportes, 0, SpringLayout.NORTH, btnVerPostulantes);
 		sl_contentPane.putConstraint(SpringLayout.WEST, btnVerReportes, 6, SpringLayout.EAST, btnCrearPublicacion);
 		contentPane.add(btnVerReportes);
+		
+		btnExportarImagenes = new JButton("Exportar Imagenes de Publicaciones");
+		sl_contentPane.putConstraint(SpringLayout.WEST, btnExportarImagenes, 2, SpringLayout.EAST, btnVerReportes);
+		sl_contentPane.putConstraint(SpringLayout.SOUTH, btnExportarImagenes, 0, SpringLayout.SOUTH, btnVerPostulantes);
+		btnExportarImagenes.addActionListener(this);
+		contentPane.add(btnExportarImagenes);
 	}
 
 	@Override
@@ -123,6 +130,10 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 			v.setCoordCandidatos(this.candCoordinador);
 			this.pubCoordinador.setVentanaVerPublicaciones(v);
 			this.pubCoordinador.mostrarVentanaVerPublicaciones();	
+		}
+		else if (src.equals(this.btnExportarImagenes))
+		{
+			this.pubCoordinador.mostrarVentanaExportarImagenes();
 		}
 	}
 	
