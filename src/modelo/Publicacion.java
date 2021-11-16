@@ -34,6 +34,28 @@ public class Publicacion {
 	private List<String> requisitos;
 	private float sueldo;
 	private boolean activa;
+
+	public Publicacion(List<Postulacion> postulaciones,
+					   String titulo,
+					   List<String> tareas,
+					   ModalidadContrato modalidad,
+					   TipoTrabajo tipo,
+					   String lugarTrabajo,
+					   String categoria,
+					   List<String> requisitos,
+					   float sueldo,
+					   boolean activa) {
+		this.postulaciones = postulaciones;
+		this.titulo = titulo;
+		this.tareas = tareas;
+		this.modalidad = modalidad;
+		this.tipo = tipo;
+		this.lugarTrabajo = lugarTrabajo;
+		this.categoria = categoria;
+		this.requisitos = requisitos;
+		this.sueldo = sueldo;
+		this.activa = activa;
+	}
 	
 	public List<PublicacionVO> getPublicaciones() {
 		PublicacionDAO miPublicacionDAO;

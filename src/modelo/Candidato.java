@@ -18,6 +18,22 @@ public class Candidato
 	private ArrayList<String> nacionalidades;
 	private ArrayList<String> idiomas;
 	private ArrayList<String> intereses;
+
+	public Candidato(String nombre,
+					 String apellido,
+					 Date fechaNacimiento,
+					 Integer dni,
+					 ArrayList<String> nacionalidades,
+					 ArrayList<String> idiomas,
+					 ArrayList<String> intereses) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNacimiento = fechaNacimiento;
+		this.DNI = dni;
+		this.nacionalidades = nacionalidades;
+		this.idiomas = idiomas;
+		this.intereses = intereses;
+	}
 	
 	public void setFechaNacimiento(int dia, int mes, int year)
 	{

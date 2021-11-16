@@ -13,6 +13,14 @@ public class Empresa
 		this.razonSocial = "";
 		this.publicaciones = new ArrayList<Publicacion>();
 	}
+
+	public Empresa(String razonSocial,
+				   int cuit,
+				   ArrayList<Publicacion> publicaciones) {
+		this.razonSocial = razonSocial;
+		this.cuit = cuit;
+		this.publicaciones = publicaciones;
+	}
 	
 	public void agregarPublicacion(Publicacion pub)
 	{

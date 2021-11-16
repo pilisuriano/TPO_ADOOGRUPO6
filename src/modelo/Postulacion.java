@@ -14,6 +14,14 @@ public class Postulacion
 	private Date fechaPostu;
 	private Candidato cand;
 	private float renumeracion;
+
+	public Postulacion(Date fechaPostu,
+					   Candidato cand,
+					   float renumeracion) {
+		this.fechaPostu = fechaPostu;
+		this.cand = cand;
+		this.renumeracion = renumeracion;
+	}
 	
 	public Candidato getCandidato() {
 		return cand;
