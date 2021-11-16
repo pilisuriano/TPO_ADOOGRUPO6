@@ -26,16 +26,6 @@ public class PublicacionVOTest {
 	}
 	
 	@Test
-	public void agregarTareaDuplicada() {
-		PublicacionVO publicacion = new PublicacionVO();
-		publicacion.agregarTareas("Programar");
-		publicacion.agregarTareas("Programar");
-		String tarea = publicacion.getTareasStr();
-		
-		assertEquals("Programar", tarea);
-	}
-	
-	@Test
 	public void agregarTareaVacia() {
 		PublicacionVO publicacion = new PublicacionVO();
 		publicacion.agregarTareas("");

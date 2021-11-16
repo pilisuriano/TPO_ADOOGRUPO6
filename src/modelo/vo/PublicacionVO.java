@@ -114,7 +114,17 @@ public class PublicacionVO
 	
 	public void agregarRequisito(String requisito)
 	{
-		if(!requisito.equals("")) this.requisitos.add(requisito);
+		if(!requisito.equals("")) {
+			if(this.requisitos.size() == 0)
+				this.requisitos.add(requisito);
+			else { 
+		        for (String i : this.requisitos) {
+		            if (!this.requisitos.contains(requisito)) {
+		                this.requisitos.add(requisito);
+		            }
+		        }
+			}
+		}
 	}
 	
 	public void eliminarRequisito(String requisito)
@@ -167,7 +177,9 @@ public class PublicacionVO
 
 	public void agregarTareas(String str) {
 		// TODO Auto-generated method stub
-		this.tareas.add(str);
+		if(!str.equals("")) {
+            this.tareas.add(str);
+		}
 	}
 
 	public int getIdPublicacion() {

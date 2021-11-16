@@ -12,7 +12,7 @@ public class CandidatoVO
 	private String nombre;
 	private String apellido;
 	private Date fechaNacimiento;
-	private Integer DNI;
+	private int DNI;
 	private ArrayList<String> nacionalidades;
 	private ArrayList<String> idiomas;
 	private ArrayList<String> intereses;
@@ -89,7 +89,7 @@ public class CandidatoVO
 		this.apellido = apellido;
 	}
 	
-	public Integer getDNI() {
+	public int getDNI() {
 		return DNI;
 	}
 	public void setDNI(Integer dNI) {

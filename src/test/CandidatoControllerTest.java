@@ -23,7 +23,7 @@ public class CandidatoControllerTest {
 		CandidatoVO candidatoTest = candidatoController.buscarCandidato(10234234);
 		
 		assertThat(candidatoTest, instanceOf(CandidatoVO.class));
-		assertEquals("10234234", candidato.getDNI());
+		assertEquals(10234234, candidato.getDNI());
 	}
 	
 	@Test
