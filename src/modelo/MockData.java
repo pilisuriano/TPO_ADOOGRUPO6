@@ -32,16 +32,16 @@ public class MockData {
     List<String> tareas = Arrays.asList("Desarrollo de funcionalidades", "Comunicación con el cliente");
 
     // - Datos mockeados
-    Candidato primerCandidato = new Candidato("Juan", "Pérez", new Date(1997, 2, 24), 30172645, nacionalidadesPrimerCandidato, idiomasPrimerCandidato, interesesPrimerCandidato);
-    Candidato segundoCandidato = new Candidato("Pedro", "González", new Date(1997, 2, 24), 30172645, nacionalidadesSegundoCandidato, idiomasSegundoCandidato, interesesSegundoCandidato);
+    public Candidato primerCandidato = new Candidato("Juan", "Pérez", new Date(1997, 2, 24), 30172645, nacionalidadesPrimerCandidato, idiomasPrimerCandidato, interesesPrimerCandidato);
+    public Candidato segundoCandidato = new Candidato("Pedro", "González", new Date(1997, 2, 24), 30172645, nacionalidadesSegundoCandidato, idiomasSegundoCandidato, interesesSegundoCandidato);
 
-    Empresa primeraEmpresa = new Empresa("UADE S.R.L", 53918765, publicacionesPrimeraEmpresa);
-    Empresa segundaEmpresa = new Empresa("Grupo 6 S.A", 1234567, publicacionesSegundaEmpresa);
+    public Empresa primeraEmpresa = new Empresa("UADE S.R.L", 53918765, publicacionesPrimeraEmpresa);
+    public Empresa segundaEmpresa = new Empresa("Grupo 6 S.A", 1234567, publicacionesSegundaEmpresa);
 
-    Publicacion primeraPublicacion = new Publicacion(postulacionesPrimeraPublicacion, "Desarrollador front-end", tareas, Publicacion.ModalidadContrato.FULL_TIME, Publicacion.TipoTrabajo.REMOTO, "Casa", "Sistemas", requisitosPrimeraPublicacion, new Float(150000.87), true);
-    Publicacion segundaPublicacion = new Publicacion(postulacionesSegundaPublicacion, "Arquitecto de software", tareas, Publicacion.ModalidadContrato.PART_TIME, Publicacion.TipoTrabajo.PRESENCIAL, "Oficina", "Sistemas", requisitosSegundaPublicacion, new Float(150000.87), true);
+    public Publicacion primeraPublicacion = new Publicacion(postulacionesPrimeraPublicacion, "Desarrollador front-end", tareas, Publicacion.ModalidadContrato.FULL_TIME, Publicacion.TipoTrabajo.REMOTO, "Casa", "Sistemas", requisitosPrimeraPublicacion, new Float(150000.87), true);
+    public Publicacion segundaPublicacion = new Publicacion(postulacionesSegundaPublicacion, "Arquitecto de software", tareas, Publicacion.ModalidadContrato.PART_TIME, Publicacion.TipoTrabajo.PRESENCIAL, "Oficina", "Sistemas", requisitosSegundaPublicacion, new Float(150000.87), true);
 
-    Postulacion primeraPostulacion = new Postulacion(new Date(2021, 11, 14), primerCandidato, new Float(100000.01));
-    Postulacion segundaPostulacion = new Postulacion(new Date(2021, 12, 25), primerCandidato, new Float(125000.13));
-    Postulacion terceraPostulacion = new Postulacion(new Date(2021, 12, 25), segundoCandidato, new Float(125000.13));
+    public Postulacion primeraPostulacion = new Postulacion(new Date(2021, 11, 14), primerCandidato, new Float(100000.01));
+    public Postulacion segundaPostulacion = new Postulacion(new Date(2021, 12, 25), primerCandidato, new Float(125000.13));
+    public Postulacion terceraPostulacion = new Postulacion(new Date(2021, 12, 25), segundoCandidato, new Float(125000.13));
 }
