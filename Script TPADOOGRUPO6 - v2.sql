@@ -1,63 +1,63 @@
+DROP DATABASE TPOGRUPO6;
 CREATE DATABASE TPOGRUPO6;
 
 USE TPOGRUPO6;
 
 CREATE TABLE IF NOT EXISTS Publicacion(
-	idPublicacion int(15) NOT NULL AUTO_INCREMENT,
-    tituloBusqueda varchar(50),
-    descripcionPuesto varchar(250),
-    modalidadContrato varchar(50),
-    tipoDeTrabajo varchar(50),
-    lugarDeTrabajo varchar(50),
-    categoria varchar(50),
-    requisitos varchar(200),
-    sueldoOfrecido float,
-    activa boolean,
-    fechaCierre date,
+    idPublicacion INT(15) NOT NULL AUTO_INCREMENT,
+    titulo VARCHAR(50),
+    descripcion VARCHAR(250),
+    modalidadContrato VARCHAR(50),
+    tipoDeTrabajo VARCHAR(50),
+    lugarDeTrabajo VARCHAR(50),
+    categoria VARCHAR(50),
+    requisitos VARCHAR(200),
+    sueldo FLOAT,
+    activa BOOLEAN,
+    fechaCierre DATE,
     PRIMARY KEY (idPublicacion)
 );
 
 CREATE TABLE IF NOT EXISTS Postulante(
-	idPostulante int(15) NOT NULL AUTO_INCREMENT,
-    nombreYApe varchar(50),
-    fechaNacimiento date,
-    nacionalidad varchar(50),
-    idiomas varchar(50),
-    intereses varchar(200),
-    remuneracionPretendida float,
-    PRIMARY KEY (idPostulante)
+    dni INT(15) NOT NULL,
+    nombreYApe VARCHAR(50),
+    fechaNacimiento DATE,
+    nacionalidad VARCHAR(50),
+    idiomas VARCHAR(50),
+    intereses VARCHAR(200),
+    PRIMARY KEY (dni)
 );
 
 CREATE TABLE IF NOT EXISTS Empresa(
-	idEmpresa int(15) NOT NULL AUTO_INCREMENT,
-    cuit Integer,
-    razonSocial varchar(200),
+    idEmpresa INT(15) NOT NULL AUTO_INCREMENT,
+    cuit INTEGER,
+    razonSocial VARCHAR(200),
     PRIMARY KEY (idEmpresa)
 );
 
 CREATE TABLE IF NOT EXISTS Favoritos(
-	idFavorito int(15) NOT NULL AUTO_INCREMENT,
-	idPostulante int(15) not null,
-	idPublicacion int(15) not null,
-	PRIMARY KEY (idFavorito),
-	FOREIGN KEY (idPublicacion) REFERENCES Publicacion(idPublicacion),
-	FOREIGN KEY (idPostulante) REFERENCES Postulante(idPostulante)
+    idFavorito INT(15) NOT NULL AUTO_INCREMENT,
+    idPostulante INT(15) NOT NULL,
+    idPublicacion INT(15) NOT NULL,
+    PRIMARY KEY (idFavorito),
+    FOREIGN KEY (idPublicacion) REFERENCES Publicacion(idPublicacion),
+    FOREIGN KEY (idPostulante) REFERENCES Postulante(dni)
 );
 
 CREATE TABLE IF NOT EXISTS PubliPostu(
-	idPubliPostu int(15) NOT NULL AUTO_INCREMENT,
-    fechaPostulacion date,
-    publicacion int(15),
-    postulante int(15),
+    idPubliPostu INT(15) NOT NULL AUTO_INCREMENT,
+    fechaPostulacion DATE,
+    publicacion INT(15),
+    postulante INT(15),
     PRIMARY KEY (idPubliPostu),
     FOREIGN KEY (publicacion) REFERENCES Publicacion(idPublicacion),
-    FOREIGN KEY (postulante) REFERENCES Postulante(idPostulante)
+    FOREIGN KEY (postulante) REFERENCES Postulante(dni)
 );
 
 CREATE TABLE IF NOT EXISTS EmpresaPubli(
-	idEmpresaPubli int(15) NOT NULL AUTO_INCREMENT,
-    empresa int(15),
-    publicacion int(15),
+ idEmpresaPubli INT(15) NOT NULL AUTO_INCREMENT,
+    empresa INT(15),
+    publicacion INT(15),
     PRIMARY KEY (idEmpresaPubli),
     FOREIGN KEY (empresa) REFERENCES Empresa(idEmpresa),
     FOREIGN KEY (publicacion) REFERENCES Publicacion(idPublicacion)
