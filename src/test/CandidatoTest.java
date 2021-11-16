@@ -10,9 +10,11 @@ import java.util.List;
 
 import org.junit.Test;
 
+import modelo.Candidato;
+import modelo.Publicacion;
 import modelo.vo.CandidatoVO;
 
-public class CandidatoVOTest {
+public class CandidatoTest {
 	@Test
 	public void agregarUnIdioma() {
 		CandidatoVO candidato = new CandidatoVO();
@@ -116,9 +118,10 @@ public class CandidatoVOTest {
 	public void removerNacionalidad() {
 		CandidatoVO candidato = new CandidatoVO();
 		candidato.agregarNacionalidad("Argentino");
-		candidato.removerNacionalidad("Argentino");
 		
 		ArrayList<String> nacionalidades = candidato.getNacionalidades();
+		
+		candidato.removerNacionalidad("Argentino");
 		
 		ArrayList<String> nacionalidadesValidacion = new ArrayList<String>();
 		
@@ -162,5 +165,40 @@ public class CandidatoVOTest {
 		candidato.setFechaNacimiento(03,12,1996);
 		
 		assertEquals(date, candidato.getFechaNacimiento());
-	}	
+	}
+	
+	@Test
+	public void agregarFavoritos() {
+		Candidato candidato = new Candidato();
+
+		Publicacion p1 = new Publicacion();
+		Publicacion p2 = new Publicacion();
+		
+		ArrayList<Publicacion> favoritos = new ArrayList<Publicacion>();
+		favoritos.add(p1);
+		favoritos.add(p2);
+		
+		candidato.setPublicacionesFavoritas(favoritos);
+		
+		int cantFavoritas = candidato.getPublicacionesFavoritas().size();
+		
+		assertEquals(2, cantFavoritas);
+	}
+	
+	@Test
+	public void tieneFavoritos() {
+		Candidato candidato = new Candidato();
+
+		Publicacion p1 = new Publicacion();
+		Publicacion p2 = new Publicacion();
+		
+		ArrayList<Publicacion> favoritos = new ArrayList<Publicacion>();
+		favoritos.add(p1);
+		
+		candidato.setPublicacionesFavoritas(favoritos);
+		
+		boolean tieneFavoritos = candidato.tieneFavorita(p1);
+				
+		assertTrue(tieneFavoritos);
+	}
 }
