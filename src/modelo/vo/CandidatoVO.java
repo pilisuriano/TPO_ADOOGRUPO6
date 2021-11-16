@@ -16,6 +16,7 @@ public class CandidatoVO
 	private ArrayList<String> nacionalidades;
 	private ArrayList<String> idiomas;
 	private ArrayList<String> intereses;
+	private String email;
 	
 	public CandidatoVO()
 	{
@@ -132,6 +133,20 @@ public class CandidatoVO
 		info += "Nacionalidades: " + String.join(" ", this.nacionalidades) + '\n';
 		
 		return info;
+	}
+
+	public void setFechaNacimiento(Date date) {
+		// TODO Auto-generated method stub
+		this.fechaNacimiento = date;
+	}
+
+	public void setEmail(String email) {
+		// TODO Auto-generated method stub
+		this.email = email;
+	}
+	
+	public String getEmail() {
+		return this.email;
 	}
 	
 }

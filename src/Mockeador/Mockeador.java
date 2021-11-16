@@ -21,6 +21,7 @@ import modelo.vo.CandidatoVO;
 import modelo.vo.PostulacionVO;
 import modelo.vo.PublicacionVO;
 import patrones.MedioNotificacion;
+import patrones.SistemaNotificador;
 
 public class Mockeador 
 {
@@ -43,7 +44,7 @@ public class Mockeador
 		publicaciones = new HashMap<Integer, Publicacion>();
 		empresas = new HashMap<Integer, Empresa>();
 		
-		this.llenarDatos();
+		this.llenarDatosPruebas();
 	}
 	
 	public List<PublicacionVO> getPublicaciones()
@@ -96,6 +97,27 @@ public class Mockeador
 		return pubs;
 	}
 	
+	public void agregarFavoritaACandidato(PublicacionVO pub, CandidatoVO cand)
+	{
+		try
+		{
+			Candidato candEO = this.candidatos.get(cand.getDNI());
+			Publicacion pubEO = this.publicaciones.get(pub.getIdPublicacion());
+			
+			if (candEO.tieneFavorita(pubEO))
+				throw new Exception();
+			
+			candEO.getPublicacionesFavoritas().add(pubEO);
+			
+			JOptionPane.showMessageDialog(null, "Se ha registrado Exitosamente la publicacion","Informacion",JOptionPane.INFORMATION_MESSAGE);
+		}
+		catch (Exception e)
+		{
+			JOptionPane.showMessageDialog(null,"La publicacion ya existe en favoritos","Error",JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
 	public void registrarPublicacion(PublicacionVO pub)
 	{
 		try
@@ -116,17 +138,18 @@ public class Mockeador
 				p.getRequisitos().add(itr);
 			
 			p.setSueldo(pub.getSueldo());
-			p.setActiva(false);
+			p.setActiva(pub.isActiva());
 			
 			int key = publicaciones.size();
-			key++;
+			pub.setIdPublicacion(key);
 			publicaciones.put(key, p);
+			key++;
+			JOptionPane.showMessageDialog(null, "Se ha registrado Exitosamente la publicacion","Informacion",JOptionPane.INFORMATION_MESSAGE);
 		}
 		catch (Exception e)
 		{
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error Registrando la Publicacion","Error",JOptionPane.ERROR_MESSAGE);
 		}
-		
 	}
 
 	public void registrarCandidato(CandidatoVO candVO)
@@ -152,7 +175,12 @@ public class Mockeador
 			for (String itr : candVO.getIntereses())
 				cand.agregarInteres(itr);
 			
+			if (this.candidatos.containsKey(cand.getDNI()))
+				throw new Exception();
+			
 			this.candidatos.put(cand.getDNI(), cand);
+			JOptionPane.showMessageDialog(null, "Se ha registrado Exitosamente al Candidato","Informacion",JOptionPane.INFORMATION_MESSAGE);
+			SistemaNotificador.getInstancia().agregarObservable(cand);
 		}
 		catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error Registrando el Candidato","Error",JOptionPane.ERROR_MESSAGE);
@@ -173,7 +201,15 @@ public class Mockeador
 			Date fecha = new Date(postuVO.getDia(), postuVO.getMes(), postuVO.getAnio());
 			postu.setFechaPostulacion(fecha);
 			
-			this.publicaciones.get(pVO.getIdPublicacion()).getPostulaciones().add(postu);
+			Publicacion pub = this.publicaciones.get(pVO.getIdPublicacion());
+						
+			for (Postulacion itr : pub.getPostulaciones())
+			{
+				if (itr.getCandidato().getDNI() == cand.getDNI())
+					throw new Exception();
+			}
+			
+			pub.getPostulaciones().add(postu);
 		}
 		catch (Exception e)
 		{
@@ -197,9 +233,9 @@ public class Mockeador
 		if (!this.empresas.containsKey(CUIT))
 			return null;
 		
-		return null;
+		Empresa emp = this.empresas.get(CUIT);
+		return emp;
 	}
-
 	
 	public List<CandidatoVO> getCandidatos() 
 	{
@@ -215,7 +251,7 @@ public class Mockeador
 		return listCandidatos;
 	}
 	
-	private void llenarDatos()
+	private void llenarDatosPruebas()
 	{
 		String[] intereses = new String[] {"Ingenieria", "Salud", "Economia", "Legislativa", "Contaduria", "Artes", "Investigacion"};
 		String[] tareas = new String[] {"Analizar", "Desarrollar", "Toma de Datos", "Capacitacion", "Asesorar", "Documentar", "Liquidacion de Nominas"};
@@ -247,13 +283,20 @@ public class Mockeador
 				"Rosario",
 		};
 		
-		String nacionalidades[] = new String[] {"Argentina, Francesa, Estadounidense, Colombiana, Chilena"};
+		String nacionalidades[] = new String[] {"Argentina", "Francesa", "Estadounidense", "Colombiana", "Chilena"};
 		
 		int DNI = 1000;
 		
+		Empresa uade = new Empresa();
+		uade.setCuit(1234);
+		uade.setEmail("contacto@uade.edu.ar");
+		uade.setRazonSocial("UADE");
+		
+		this.empresas.put(uade.getCuit(), uade);
+		
 		for (int i = 0; i < 5; ++i)
 		{
-			Candidato c = new Candidato();
+			CandidatoVO c = new CandidatoVO();
 			
 			c.setNombre(getRandomElement(nombres));
 			c.setApellido(getRandomElement(apellidos));
@@ -270,12 +313,18 @@ public class Mockeador
 			c.setFechaNacimiento(getRandomDate());
 			c.setDNI(DNI);
 			DNI += 2;
-			this.candidatos.put(c.getDNI(), c);
+			this.registrarCandidato(c);
 		}
 		
+		// TODO Auto-generated method stub
+			
+        // Se agrega desde aqui por motivos de pruebas
+		for(Entry<Integer, Candidato> entry : this.candidatos.entrySet())
+			SistemaNotificador.getInstancia().agregarObservable(entry.getValue());
+			
 		for (int i = 0; i < 5; ++i)
 		{
-			Publicacion p = new Publicacion();
+			PublicacionVO p = new PublicacionVO();
 			
 			p.setTitulo(getRandomElement(titulos));
 			
@@ -294,16 +343,15 @@ public class Mockeador
 				p.setModalidad(ModalidadContrato.PART_TIME);
 			
 			if (getRandomNumber(0, 1) == 1)
-				p.setTipo(TipoTrabajo.PRESENCIAL);
+				p.setTipoTrabajo(TipoTrabajo.PRESENCIAL);
 			else
-				p.setTipo(TipoTrabajo.REMOTO);
+				p.setTipoTrabajo(TipoTrabajo.REMOTO);
 			
 			p.setLugarTrabajo(getRandomElement(lugares));
 			p.setCategoria(getRandomElement(intereses));
 			p.setMedioNotificacion(MedioNotificacion.EMAIL);
 			
-			int size = this.publicaciones.size();
-			this.publicaciones.put(size +  1, p);
+			this.registrarPublicacion(p);
 		}
 	}
 	

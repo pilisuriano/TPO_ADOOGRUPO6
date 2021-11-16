@@ -5,11 +5,8 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 import Mockeador.Mockeador;
-import modelo.dao.PostulacionDAO;
-import modelo.dao.PublicacionDAO;
 import modelo.vo.PostulacionVO;
 import modelo.vo.PublicacionVO;
-import patrones.SistemaNotificador;
 
 public class Postulacion 
 {
@@ -25,6 +22,10 @@ public class Postulacion
 		this.renumeracion = renumeracion;
 	}
 	
+	public Postulacion() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Candidato getCandidato() {
 		return cand;
 	}

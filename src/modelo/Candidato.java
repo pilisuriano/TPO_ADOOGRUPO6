@@ -9,32 +9,24 @@ import javax.swing.JOptionPane;
 import Mockeador.Mockeador;
 import modelo.dao.CandidatoDAO;
 import modelo.vo.CandidatoVO;
+import modelo.vo.PostulacionVO;
+import modelo.vo.PublicacionVO;
+import patrones.IObservable;
+import patrones.MedioNotificacion;
+import patrones.Notificacion;
+import patrones.SistemaNotificador;
 
-public class Candidato 
+public class Candidato implements IObservable
 {
 	private String nombre;
 	private String apellido;
 	private Date fechaNacimiento;
 	private Integer DNI;
-	private ArrayList<String> nacionalidades;
-	private ArrayList<String> idiomas;
-	private ArrayList<String> intereses;
-
-	public Candidato(String nombre,
-					 String apellido,
-					 Date fechaNacimiento,
-					 Integer dni,
-					 ArrayList<String> nacionalidades,
-					 ArrayList<String> idiomas,
-					 ArrayList<String> intereses) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.fechaNacimiento = fechaNacimiento;
-		this.DNI = dni;
-		this.nacionalidades = nacionalidades;
-		this.idiomas = idiomas;
-		this.intereses = intereses;
-	}
+	private List<String> nacionalidades;
+	private List<String> idiomas;
+	private List<String> intereses;
+	private List<Publicacion> favoritos;
+	private String email;
 	
 	public void setFechaNacimiento(int dia, int mes, int year)
 	{
@@ -94,7 +86,7 @@ public class Candidato
 			nacionalidades.remove(pos);
 	}
 	
-	public ArrayList<String> getNacionalidades()
+	public List<String> getNacionalidades()
 	{
 		return this.nacionalidades;
 	}
@@ -120,7 +112,7 @@ public class Candidato
 		DNI = dNI;
 	}
 
-	public ArrayList<String> getIdiomas() {
+	public List<String> getIdiomas() {
 		return idiomas;
 	}
 
@@ -128,7 +120,7 @@ public class Candidato
 		this.idiomas = idiomas;
 	}
 
-	public ArrayList<String> getIntereses() {
+	public List<String> getIntereses() {
 		return intereses;
 	}
 
@@ -166,8 +158,6 @@ public class Candidato
 	
 	public CandidatoVO buscarCandidato(int DNI) {
 		
-		CandidatoDAO candDAO;
-		
 		try 
 		{
 			if (DNI > 99) 
@@ -181,5 +171,48 @@ public class Candidato
 		}
 					
 		return null;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public void postulacionRealizada(PostulacionVO post, PublicacionVO pub) {
+		// TODO Auto-generated method stub
+		if (post.getCandidato().getDNI() != this.getDNI())
+			return;
+		
+		Notificacion not = new Notificacion();
+		
+		not.setRemitente("Sistema RRHH");
+		String msj = "Su postulacion ha sido recibida existosamente, en breve la empresa lo contactara Sr: " + this.nombre + " " + this.apellido;
+		not.setMsj(msj);
+		not.setDestinatario(this.email);
+		
+		SistemaNotificador.getInstancia().enviarNotificacion(not, MedioNotificacion.EMAIL);
+	}
+
+	public List<Publicacion> getPublicacionesFavoritas() {
+		return favoritos;
+	}
+
+	public void setPublicacionesFavoritas(List<Publicacion> favoritos) {
+		this.favoritos = favoritos;
+	}
+	
+	public boolean tieneFavorita(Publicacion p)
+	{
+		for (Publicacion itr : this.favoritos)
+		{
+			if (p.getIdPublicacion() == itr.getIdPublicacion())
+				return true;
+		}
+		
+		return false;
 	}
 }

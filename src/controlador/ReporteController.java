@@ -2,7 +2,6 @@ package controlador;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,17 +13,17 @@ import vista.VentanaReporte;
 public class ReporteController {
 
 	private Publicacion publicacion;
-	private VentanaReporte miVentanaReporte;
+	private VentanaReporte ventanaReporte;
 	
 	public ReporteController() {
 		publicacion = new Publicacion();
 	}
 	
 	public VentanaReporte getMiVentanaReporte() {
-		return miVentanaReporte;
+		return ventanaReporte;
 	}
 	public void setMiVentanaReporte(VentanaReporte miVentanaReporte) {
-		this.miVentanaReporte = miVentanaReporte;
+		this.ventanaReporte = miVentanaReporte;
 	}	
 	public Publicacion getMiLogica() {
 		return publicacion;
@@ -33,9 +32,9 @@ public class ReporteController {
 //////////////////////////////////////////////////////////
 	
 	public void mostrarVentanaReporte() {
-		miVentanaReporte = new VentanaReporte();
-		miVentanaReporte.setCoordinador(this);
-		miVentanaReporte.setVisible(true);
+		ventanaReporte = new VentanaReporte();
+		ventanaReporte.setCoordinador(this);
+		ventanaReporte.setVisible(true);
 	}	
 	
 	public ReporteVO getReporteMayorOfertasLaborales(String mes, String anio) 
@@ -94,8 +93,6 @@ public class ReporteController {
 		for(Map.Entry<String,Integer> entry : freqs.entrySet()) 
 		{
 		  String key = entry.getKey();
-		  Integer value = entry.getValue();
-		  		  
 		  if (categorias.size() >= M)
 			  break;
 		  

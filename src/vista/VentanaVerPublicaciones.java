@@ -196,7 +196,7 @@ public class VentanaVerPublicaciones extends JFrame implements ActionListener, L
 				post.setCandidato(cFijo);
 				
 				this.coordPublicaciones.registrarPostulacion(pub, post);
-				SistemaNotificador.getInstancia().postulacionRealizada(post, pub);
+				SistemaNotificador.getInstancia().notificarPostulacion(post, pub);
 			
 			}catch (Exception ex) {
 				JOptionPane.showMessageDialog(null,"Error en el Ingreso de Datos","Error",JOptionPane.ERROR_MESSAGE);

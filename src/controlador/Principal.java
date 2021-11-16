@@ -1,7 +1,6 @@
 package controlador;
 
 import vista.VentanaPrincipal;
-import vista.VentanaReporte;
 
 public class Principal {
 	
