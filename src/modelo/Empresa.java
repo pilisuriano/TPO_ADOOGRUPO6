@@ -65,9 +65,22 @@ public class Empresa
 	public void postulacionRealizada(PostulacionVO postu, PublicacionVO pub)
 	{
 		// TODO Auto-generated method stub
+		// Solo notificar si la publicacion es de la empresa
+		boolean existe = false;
+		for (Publicacion itr : this.publicaciones)
+		{
+			if (itr.getIdPublicacion() == pub.getIdPublicacion())
+			{
+				existe = true;
+				break;
+			}
+		}
+		
+		if (!existe)
+			return;
+		
 		Notificacion not = new Notificacion();
 		CandidatoVO candidato = postu.getCandidato();
-		
 		
 		not.setRemitente("Sistema RRHH - Postulaciones");
 		not.setMsj("Se ha postulado un nuevo candidato llamado: " + candidato.getNombre() + " " + candidato.getApellido());

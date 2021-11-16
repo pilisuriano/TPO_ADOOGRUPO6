@@ -203,6 +203,10 @@ public class VentanaVerPublicaciones extends JFrame implements ActionListener, L
 			}
 			
 		}
+		else if (arg0.getSource().equals(btnFavoritos))
+		{
+			
+		}
 		else if (arg0.getSource().equals(btnSalir))
 		{
 			System.out.println("Salir");
