@@ -117,7 +117,13 @@ public class VentanaPrincipal extends JFrame implements ActionListener {
 		else if (src.equals(btnVerReportes))
 			this.reporteCoordinador.mostrarVentanaReporte();
 		else if (src.equals(btnVerPublicaciones))
-			this.pubCoordinador.mostrarVentanaVerPublicaciones();
+		{
+			VentanaVerPublicaciones v = new VentanaVerPublicaciones();
+			v.setCoordPublicaciones(this.pubCoordinador);
+			v.setCoordCandidatos(this.candCoordinador);
+			this.pubCoordinador.setVentanaVerPublicaciones(v);
+			this.pubCoordinador.mostrarVentanaVerPublicaciones();	
+		}
 	}
 	
 	public void setCandidatoController(CandidatoController c)

@@ -9,9 +9,9 @@ import javax.swing.SpringLayout;
 import controlador.PublicacionController;
 import modelo.Publicacion;
 import modelo.vo.PublicacionVO;
+import patrones.MedioNotificacion;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JComboBox;
@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 
 public class VentanaCrearPublicacion extends JFrame implements ActionListener {
@@ -202,6 +203,8 @@ public class VentanaCrearPublicacion extends JFrame implements ActionListener {
 				pub.setLugarTrabajo(this.tfLugarTrabajo.getText());
 				pub.setCategoria((String) this.cbCategoria.getSelectedItem());
 				pub.setSueldo(Float.parseFloat(this.tfSueldo.getText()));
+				pub.setMedioNotificacion(MedioNotificacion.EMAIL);
+				
 				this.coordinadorPublicaciones.crearPublicacion(pub);
 				
 			} catch (Exception ex) {

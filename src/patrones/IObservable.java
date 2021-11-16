@@ -1,8 +1,8 @@
 package patrones;
 
-import modelo.Postulacion;
-import modelo.Publicacion;
+import modelo.vo.PostulacionVO;
+import modelo.vo.PublicacionVO;
 
 public interface IObservable {
-	public void postulacionRealizada(Postulacion postu, Publicacion pub);
+	public void postulacionRealizada(PostulacionVO post, PublicacionVO pub);
 }

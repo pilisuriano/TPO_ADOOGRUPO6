@@ -153,7 +153,6 @@ public class VentanaReporte extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		if (arg0.getSource().equals(btnNewButton))
 		{
-			
 			/* Top M Categorias vistas*/
 			String mValue = this.tfMCategorias.getText();
 			List<String> topMCategorias = null;

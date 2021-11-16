@@ -2,7 +2,9 @@ package controlador;
 
 import java.util.List;
 
+import modelo.Postulacion;
 import modelo.Publicacion;
+import modelo.vo.PostulacionVO;
 import modelo.vo.PublicacionVO;
 import patrones.ExportadorImagen;
 import patrones.FormatoExportar;
@@ -20,10 +22,12 @@ public class PublicacionController
 	private ExportadorImagen exportador;
 	
 	Publicacion modeloPublicacion;
+	Postulacion modeloPostulacion;
 	
 	public PublicacionController()
 	{
 		modeloPublicacion = new Publicacion();
+		modeloPostulacion = new Postulacion();
 		exportador = new ExportadorImagen();
 	}
 	
@@ -38,17 +42,12 @@ public class PublicacionController
 	{
 		verPostulantesVentana = new VentanaVerPostulantes();
 		verPostulantesVentana.setCoordinadorPublicaciones(this);
-		
-		List<PublicacionVO> pubs = this.modeloPublicacion.getPublicaciones();
-		
-		verPostulantesVentana.agregarInfoPublicaciones(pubs);
+		verPostulantesVentana.llenarDatos();
 		this.verPostulantesVentana.setVisible(true);
 	}
 	
 	public void mostrarVentanaVerPublicaciones()
 	{
-		this.verPublicacionesVentana = new VentanaVerPublicaciones();
-		this.verPublicacionesVentana.setCoordPublicaciones(this);
 		this.verPublicacionesVentana.llenarDatosPublicaciones();
 		this.verPublicacionesVentana.setVisible(true);
 	}
@@ -56,6 +55,16 @@ public class PublicacionController
 	public void crearPublicacion(PublicacionVO pub)
 	{
 		this.modeloPublicacion.registrarPublicacion(pub);
+	}
+	
+	public VentanaVerPublicaciones getVentanaVerPublicaciones()
+	{
+		return this.verPublicacionesVentana;
+	}
+	
+	public void setVentanaVerPublicaciones(VentanaVerPublicaciones v)
+	{
+		this.verPublicacionesVentana = v;
 	}
 	
 	public List<PublicacionVO> getPublicacionesActivas()
@@ -81,5 +90,10 @@ public class PublicacionController
 		}
 		
 		exportador.exportarPublicacion(pub);
+	}
+	
+	public void registrarPostulacion(PublicacionVO pub, PostulacionVO post)
+	{
+		this.modeloPostulacion.registrarPostulacion(pub, post);
 	}
 }

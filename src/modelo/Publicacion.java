@@ -2,15 +2,16 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 
+import Mockeador.Mockeador;
 import modelo.dao.PublicacionDAO;
-import modelo.vo.PostulacionVO;
 import modelo.vo.PublicacionVO;
+import patrones.MedioNotificacion;
 
 
-public class Publicacion {
+public class Publicacion
+{
 
 	public enum ModalidadContrato
 	{
@@ -34,6 +35,7 @@ public class Publicacion {
 	private List<String> requisitos;
 	private float sueldo;
 	private boolean activa;
+	private MedioNotificacion medioNoti;
 
 	public Publicacion(List<Postulacion> postulaciones,
 					   String titulo,
@@ -57,12 +59,17 @@ public class Publicacion {
 		this.activa = activa;
 	}
 	
+	public Publicacion()
+	{
+		this.tareas = new ArrayList<String>();
+		this.requisitos = new ArrayList<String>();
+		this.postulaciones = new ArrayList<Postulacion>();
+	}
+	
 	public List<PublicacionVO> getPublicaciones() {
-		PublicacionDAO miPublicacionDAO;
 		
 		try {				
-			miPublicacionDAO = new PublicacionDAO();
-			return miPublicacionDAO.getPublicaciones();			
+			return Mockeador.getInstancia().getPublicaciones();	
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
 		}
@@ -72,11 +79,8 @@ public class Publicacion {
 	
 	public List<PublicacionVO> getPublicacioneRemotasYPartTime()
 	{
-		PublicacionDAO miPublicacionDAO;
-		
 		try {				
-			miPublicacionDAO = new PublicacionDAO();
-			return miPublicacionDAO.getPublicacionesRemotasYPartTime();
+			return Mockeador.getInstancia().getPublicacionesRemotasYPartTime();
 			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
@@ -86,11 +90,8 @@ public class Publicacion {
 	}
 	
 	public List<PublicacionVO> getPublicacionesActivas() {
-		PublicacionDAO miPublicacionDAO;
-		
 		try {				
-			miPublicacionDAO = new PublicacionDAO();
-			return miPublicacionDAO.getPublicacionesActivas();			
+			return Mockeador.getInstancia().getPublicacionesActivas();	
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
 		}
@@ -185,8 +186,22 @@ public class Publicacion {
 	public boolean isActiva() {
 		return activa;
 	}
+	
+	public boolean esRemotaYPartTime()
+	{
+		return this.modalidad == ModalidadContrato.PART_TIME &&
+				this.tipo == TipoTrabajo.REMOTO;
+	}
 
 	public void setActiva(boolean activa) {
 		this.activa = activa;
+	}
+
+	public MedioNotificacion getMedioNotificacion() {
+		return medioNoti;
+	}
+
+	public void setMedioNotificacion(MedioNotificacion medioNoti) {
+		this.medioNoti = medioNoti;
 	}
 }

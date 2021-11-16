@@ -5,6 +5,8 @@ import java.util.List;
 
 import modelo.Postulacion;
 import modelo.Publicacion;
+import modelo.vo.PostulacionVO;
+import modelo.vo.PublicacionVO;
 
 public class SistemaNotificador
 {
@@ -57,9 +59,9 @@ public class SistemaNotificador
 		this.notificador.notificar(not);
 	}
 
-	public void postulacionRealizada(Postulacion postu, Publicacion pub) {
+	public void postulacionRealizada(PostulacionVO post, PublicacionVO pub) {
 		// TODO Auto-generated method stub
 		for (IObservable itr : this.observables)
-			itr.postulacionRealizada(postu, pub);
+			itr.postulacionRealizada(post, pub);
 	}
 }

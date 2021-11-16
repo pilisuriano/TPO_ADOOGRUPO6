@@ -3,8 +3,11 @@ package modelo.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.Postulacion;
+import modelo.Publicacion;
 import modelo.Publicacion.ModalidadContrato;
 import modelo.Publicacion.TipoTrabajo;
+import patrones.MedioNotificacion;
 
 public class PublicacionVO 
 {
@@ -18,6 +21,8 @@ public class PublicacionVO
 	private List<String> requisitos;
 	private float sueldo;
 	private boolean activa;
+	private int idPublicacion;
+	private MedioNotificacion medioNotificacion;
 	
 	public PublicacionVO()
 	{
@@ -25,8 +30,32 @@ public class PublicacionVO
 		requisitos = new ArrayList<String>();
 		tipo = TipoTrabajo.PRESENCIAL;
 		modalidad = ModalidadContrato.FULL_TIME;
+		postulaciones = new ArrayList<PostulacionVO>();
 	}
 	
+	public PublicacionVO(Publicacion value)
+	{
+		// TODO Auto-generated constructor stub
+		titulo = value.getTitulo();
+		tareas = new ArrayList<String>(value.getTareas());
+		modalidad = value.getModalidad();
+		tipo = value.getTipo();
+		lugarTrabajo = value.getLugarTrabajo();
+		categoria = value.getCategoria();
+		requisitos = new ArrayList<String>(value.getRequisitos());
+		sueldo = value.getSueldo();
+		activa = value.isActiva();
+		medioNotificacion = value.getMedioNotificacion();
+		postulaciones = new ArrayList<PostulacionVO>();
+		
+		for (Postulacion itr : value.getPostulaciones())
+		{
+			PostulacionVO post = new PostulacionVO(itr);
+			postulaciones.add(post);
+		}
+		
+	}
+
 	public String getModalidadStr()
 	{
 		if (modalidad.equals(ModalidadContrato.PART_TIME))
@@ -136,5 +165,31 @@ public class PublicacionVO
 	public void agregarTareas(String str) {
 		// TODO Auto-generated method stub
 		this.tareas.add(str);
+	}
+
+	public int getIdPublicacion() {
+		return idPublicacion;
+	}
+
+	public void setIdPublicacion(int idPublicacion) {
+		this.idPublicacion = idPublicacion;
+	}
+
+	public MedioNotificacion getMedioNotificacion() {
+		return medioNotificacion;
+	}
+
+	public void setMedioNotificacion(MedioNotificacion medioNotificacion) {
+		this.medioNotificacion = medioNotificacion;
+	}
+
+	public ModalidadContrato getModalidadContrato() {
+		// TODO Auto-generated method stub
+		return this.modalidad;
+	}
+
+	public TipoTrabajo getTipoTrabajo() {
+		// TODO Auto-generated method stub
+		return this.tipo;
 	}
 }

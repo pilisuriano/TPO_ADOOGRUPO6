@@ -2,16 +2,27 @@ package modelo;
 
 import java.util.ArrayList;
 
+import modelo.vo.CandidatoVO;
+import modelo.vo.PostulacionVO;
+import modelo.vo.PublicacionVO;
+import patrones.MedioNotificacion;
+import patrones.Notificacion;
+import patrones.SistemaNotificador;
+
 public class Empresa 
 {
 	private String razonSocial;
 	private int cuit;
 	private ArrayList<Publicacion> publicaciones;
+	private String email;
+	private int tlf;
 	
 	public Empresa()
 	{
 		this.razonSocial = "";
 		this.publicaciones = new ArrayList<Publicacion>();
+		this.cuit = 0;
+		this.setEmail("");
 	}
 
 	public Empresa(String razonSocial,
@@ -51,5 +62,38 @@ public class Empresa
 		this.cuit = cuit;
 	}
 	
-	
+	public void postulacionRealizada(PostulacionVO postu, PublicacionVO pub)
+	{
+		// TODO Auto-generated method stub
+		Notificacion not = new Notificacion();
+		CandidatoVO candidato = postu.getCandidato();
+		
+		
+		not.setRemitente("Sistema RRHH - Postulaciones");
+		not.setMsj("Se ha postulado un nuevo candidato llamado: " + candidato.getNombre() + " " + candidato.getApellido());
+		
+		if (pub.getMedioNotificacion() == MedioNotificacion.EMAIL)
+			not.setRemitente(this.email);
+		else
+			not.setRemitente(Integer.toString(tlf));
+		
+		
+		SistemaNotificador.getInstancia().enviarNotificacion(not, pub.getMedioNotificacion());
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getTlf() {
+		return tlf;
+	}
+
+	public void setTlf(int tlf) {
+		this.tlf = tlf;
+	}
 }

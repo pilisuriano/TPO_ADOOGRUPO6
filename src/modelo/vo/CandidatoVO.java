@@ -3,6 +3,8 @@ package modelo.vo;
 import java.util.ArrayList;
 import java.util.Date;
 
+import modelo.Candidato;
+
 public class CandidatoVO 
 {
 	private String nombre;
@@ -20,6 +22,17 @@ public class CandidatoVO
 		this.setIntereses(new ArrayList<String>());
 	}
 	
+	public CandidatoVO(Candidato c) {
+		// TODO Auto-generated constructor stub
+		nombre = c.getNombre();
+		apellido = c.getApellido();
+		fechaNacimiento = c.getFechaNacimiento();
+		DNI = c.getDNI();
+		nacionalidades = new ArrayList<String>(c.getNacionalidades());
+		idiomas = new ArrayList<String>(c.getIdiomas());
+		intereses = new ArrayList<String>(c.getIntereses());
+	}
+
 	public void setFechaNacimiento(int dia, int mes, int year)
 	{
 		this.fechaNacimiento = new Date(year, mes, dia);
@@ -96,6 +109,19 @@ public class CandidatoVO
 	public void agregarInteres(String interes) {
 		// TODO Auto-generated method stub
 		this.intereses.add(interes);
+	}
+
+	public String getInfoCandidato() {
+		// TODO Auto-generated method stub
+		String info = "";
+		
+		info += "Nombre: " + this.nombre + '\n';
+		info += "Apellido: " + this.apellido + '\n';
+		info += "Idiomas: " + String.join(" ", this.idiomas) + '\n';
+		info += "Intereses: " + String.join(" ", this.intereses) + '\n';
+		info += "Nacionalidades: " + String.join(" ", this.nacionalidades) + '\n';
+		
+		return info;
 	}
 	
 }

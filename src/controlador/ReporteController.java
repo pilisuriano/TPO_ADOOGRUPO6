@@ -86,7 +86,6 @@ public class ReporteController {
 				count += 1;
 				countRef = count;
 				freqs.put(cat, count);
-				//System.out.println(cat + " => " + freqs.get(cat));
 			}
 			else
 				freqs.put(cat, 1); 
@@ -96,15 +95,11 @@ public class ReporteController {
 		{
 		  String key = entry.getKey();
 		  Integer value = entry.getValue();
-		  
-		  System.out.println(key + " => " + value);
-		  
+		  		  
 		  if (categorias.size() >= M)
 			  break;
 		  
 		  categorias.add(key);
-		  
-		  System.out.println(key + " => " + value);
 		}
 		
 		return categorias;
@@ -124,8 +119,6 @@ public class ReporteController {
 		{	
 			int lhsReq = min.getRequisitos().size() + min.getTareas().size();
 			int rhsReq = itr.getRequisitos().size() + itr.getTareas().size();
-			
-			System.out.println(lhsReq + "," + rhsReq);
 			
 			if (lhsReq > rhsReq)
 				min = itr;
@@ -147,11 +140,7 @@ public class ReporteController {
 		
 		for (PublicacionVO itr : pubs)
 		{
-			int rhsReq = itr.getRequisitos().size();
-			int lhsReq = pubMasExigente.getRequisitos().size();
 			
-			String str = String.format("Req LHS: %d, Req RHS: %d", lhsReq, rhsReq);
-			System.out.println(str);
 			
 			if (pubMasExigente.getRequisitos().size() < itr.getRequisitos().size())
 				pubMasExigente = itr;

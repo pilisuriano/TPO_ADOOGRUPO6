@@ -5,8 +5,12 @@ import java.util.List;
 
 import javax.swing.JInternalFrame;
 import javax.swing.SpringLayout;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controlador.PublicacionController;
+import modelo.vo.CandidatoVO;
+import modelo.vo.PostulacionVO;
 import modelo.vo.PublicacionVO;
 
 import javax.swing.JLabel;
@@ -17,7 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class VentanaVerPostulantes extends JFrame {
+public class VentanaVerPostulantes extends JFrame implements ListSelectionListener {
 
 	/**
 	 * Launch the application.
@@ -38,6 +42,10 @@ public class VentanaVerPostulantes extends JFrame {
 
 	private JList<String> listPublicaciones;
 	private PublicacionController coordPublicaciones;
+	private List<PublicacionVO> publicaciones;
+	private JList listPostulantes;
+	private CandidatoVO candActual;
+	private JTextArea tAInformacionPostulante;
 
 	/**
 	 * Create the frame.
@@ -57,21 +65,14 @@ public class VentanaVerPostulantes extends JFrame {
 		springLayout.putConstraint(SpringLayout.WEST, listPublicaciones, 10, SpringLayout.WEST, getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, listPublicaciones, -47, SpringLayout.SOUTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, listPublicaciones, -330, SpringLayout.EAST, getContentPane());
+		listPublicaciones.addListSelectionListener(this);
 		getContentPane().add(listPublicaciones);
 		
-		JList listPostulantes = new JList();
+		listPostulantes = new JList();
 		springLayout.putConstraint(SpringLayout.WEST, listPostulantes, 6, SpringLayout.EAST, listPublicaciones);
 		springLayout.putConstraint(SpringLayout.SOUTH, listPostulantes, -47, SpringLayout.SOUTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, listPostulantes, -226, SpringLayout.EAST, getContentPane());
-		listPostulantes.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Post1", "Post2", "Post3"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
+		listPostulantes.addListSelectionListener(this);
 		getContentPane().add(listPostulantes);
 		
 		JLabel lbPostulantes = new JLabel("Postulantes");
@@ -80,7 +81,7 @@ public class VentanaVerPostulantes extends JFrame {
 		springLayout.putConstraint(SpringLayout.NORTH, lbPostulantes, 0, SpringLayout.NORTH, lbPublicaciones);
 		getContentPane().add(lbPostulantes);
 		
-		JTextArea tAInformacionPostulante = new JTextArea();
+		tAInformacionPostulante = new JTextArea();
 		springLayout.putConstraint(SpringLayout.WEST, tAInformacionPostulante, 36, SpringLayout.EAST, listPostulantes);
 		springLayout.putConstraint(SpringLayout.SOUTH, tAInformacionPostulante, -47, SpringLayout.SOUTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, tAInformacionPostulante, -30, SpringLayout.EAST, getContentPane());
@@ -114,5 +115,44 @@ public class VentanaVerPostulantes extends JFrame {
 	public void setCoordinadorPublicaciones(PublicacionController publicacionController) {
 		// TODO Auto-generated method stub
 		this.coordPublicaciones = publicacionController;
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent arg0) 
+	{
+		if (arg0.getSource().equals(listPublicaciones))
+		{
+			// TODO Auto-generated method stub
+			int idx = this.listPublicaciones.getSelectedIndex();
+			PublicacionVO pub = publicaciones.get(idx);
+			DefaultListModel<String> titulosPostulantes = new DefaultListModel<>(); 
+			
+			for (PostulacionVO itr : pub.getPostulaciones())
+			{
+				candActual = itr.getCandidato();
+				String nombreCand = candActual.getNombre() + " " + candActual.getApellido();
+				titulosPostulantes.addElement(nombreCand);
+			}
+			
+			this.listPostulantes.setModel(titulosPostulantes);
+		}
+		else if (arg0.getSource().equals(listPostulantes))
+		{
+			this.tAInformacionPostulante.setText(candActual.getInfoCandidato());
+		}
+	}
+
+	public void llenarDatos() {
+		// TODO Auto-generated method stub
+		publicaciones = this.coordPublicaciones.getPublicacionesActivas();
+		
+		DefaultListModel<String> titulosPubs = new DefaultListModel<>(); 
+		
+		for (PublicacionVO itr : publicaciones)
+		{
+			titulosPubs.addElement(itr.getTitulo());
+		}
+		
+		this.listPublicaciones.setModel(titulosPubs);
 	}
 }

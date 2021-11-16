@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import Mockeador.Mockeador;
 import modelo.dao.CandidatoDAO;
 import modelo.vo.CandidatoVO;
 
@@ -38,6 +39,38 @@ public class Candidato
 	public void setFechaNacimiento(int dia, int mes, int year)
 	{
 		this.fechaNacimiento = new Date(year, mes, dia);
+	}
+	
+	public void setFechaNacimiento(Date fecha)
+	{
+		this.fechaNacimiento = fecha;
+	}
+	
+	public Candidato()
+	{
+		this.nacionalidades = new ArrayList<String>();
+		this.idiomas = new ArrayList<String>();
+		this.intereses = new ArrayList<String>();
+	}
+	
+	public CandidatoVO getCandidatoVO()
+	{
+		CandidatoVO cand = new CandidatoVO();
+		cand.setNombre(nombre);
+		cand.setApellido(apellido);
+		cand.setFechaNacimiento(fechaNacimiento.getDay(), fechaNacimiento.getMonth(), fechaNacimiento.getYear());
+		cand.setDNI(DNI);
+		
+		for (String itr : idiomas)
+			cand.agregarIdioma(itr);
+		
+		for (String itr : intereses)
+			cand.agregarInteres(itr);
+		
+		for (String itr : nacionalidades)
+			cand.agregarNacionalidad(itr);
+		
+		return cand;
 	}
 	
 	public Date getFechaNacimiento() { return this.fechaNacimiento; }
@@ -115,11 +148,8 @@ public class Candidato
 	
 	public List<CandidatoVO> getCandidatos()
 	{
-		CandidatoDAO candidatoDAO;
-		
-		try {				
-			candidatoDAO = new CandidatoDAO();
-			return candidatoDAO.getCandidatos();			
+		try {
+			return Mockeador.getInstancia().getCandidatos();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
 		}
@@ -127,12 +157,8 @@ public class Candidato
 	}
 
 	public void registrarCandidato(CandidatoVO candidato) {
-		// TODO Auto-generated method stub
-		CandidatoDAO candidatoDAO;
-		
 		try {				
-			candidatoDAO = new CandidatoDAO();
-			candidatoDAO.registrarCandidato(candidato);
+			Mockeador.getInstancia().registrarCandidato(candidato);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
 		}
@@ -146,8 +172,7 @@ public class Candidato
 		{
 			if (DNI > 99) 
 			{
-				candDAO = new CandidatoDAO();
-				return candDAO.buscarCandidato(DNI);						
+				return Mockeador.getInstancia().getCandidato(DNI);						
 			}else
 				JOptionPane.showMessageDialog(null,"El documento de la persona debe ser mas de 3 digitos","Advertencia",JOptionPane.WARNING_MESSAGE);	
 		}

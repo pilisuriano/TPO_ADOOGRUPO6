@@ -96,7 +96,7 @@ public class PublicacionDAO
 				
 				String mod = res.getString("modalidadContrato");
 				
-				System.out.println(mod);
+				
 				
 				
 				if (mod.equals("part-time"))
@@ -109,8 +109,6 @@ public class PublicacionDAO
 				}
 				
 				String tipo = res.getString("tipoDeTrabajo");
-				
-				System.out.println(tipo);
 				
 				if (tipo.equals("remoto"))
 					publicacion.setTipoTrabajo(Publicacion.TipoTrabajo.REMOTO);
@@ -199,9 +197,6 @@ public class PublicacionDAO
 				
 				String mod = res.getString("modalidadContrato");
 				
-				System.out.println(mod);
-				
-				
 				if (mod.equals("part-time"))
 				{
 					publicacion.setModalidad(Publicacion.ModalidadContrato.PART_TIME);	
@@ -213,7 +208,6 @@ public class PublicacionDAO
 				
 				String tipo = res.getString("tipoDeTrabajo");
 				
-				System.out.println(tipo);
 				
 				if (tipo.equals("remoto"))
 					publicacion.setTipoTrabajo(Publicacion.TipoTrabajo.REMOTO);

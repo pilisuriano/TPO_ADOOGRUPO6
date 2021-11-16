@@ -1,5 +1,7 @@
 package modelo.vo;
 
+import modelo.Postulacion;
+
 public class PostulacionVO 
 {
 	private Integer mes;
@@ -8,6 +10,22 @@ public class PostulacionVO
 	private CandidatoVO candidato;
 	private float renumeracion;
 	
+	public PostulacionVO(Postulacion postulacion) 
+	{
+		// TODO Auto-generated constructor stub
+		mes = postulacion.getMes();
+		anio = postulacion.getAnio();
+		dia = postulacion.getDia();
+		
+		candidato = postulacion.getCandidato().getCandidatoVO();
+		renumeracion = postulacion.getRenumeracion();
+	}
+	
+	public PostulacionVO() {
+		// TODO Auto-generated constructor stub
+		candidato = new CandidatoVO();
+	}
+
 	public Integer getMes() {
 		return mes;
 	}

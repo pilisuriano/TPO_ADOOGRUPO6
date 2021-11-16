@@ -4,10 +4,12 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
+import Mockeador.Mockeador;
 import modelo.dao.PostulacionDAO;
 import modelo.dao.PublicacionDAO;
 import modelo.vo.PostulacionVO;
 import modelo.vo.PublicacionVO;
+import patrones.SistemaNotificador;
 
 public class Postulacion 
 {
@@ -43,6 +45,11 @@ public class Postulacion
 	}
 	
 	public int getAnio() {
+		return this.fechaPostu.getYear();
+	}
+	
+	public int getDia()
+	{
 		return this.fechaPostu.getDay();
 	}
 	
@@ -57,13 +64,9 @@ public class Postulacion
 	}
 	
 	public void registrarPostulacion(PublicacionVO pub, PostulacionVO postu)
-	{
-		PostulacionDAO postuDAO;
-		
+	{	
 		try {				
-			postuDAO = new PostulacionDAO();
-			postuDAO.registrarPostulacion(pub, postu);
-			
+			Mockeador.getInstancia().registrarPostulacion(pub, postu);			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,"Se ha presentado un Error","Error",JOptionPane.ERROR_MESSAGE);
 		}

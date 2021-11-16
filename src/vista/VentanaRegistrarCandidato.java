@@ -57,7 +57,7 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 	 * Create the frame.
 	 */
 	public VentanaRegistrarCandidato() {
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 521, 300);
 		SpringLayout springLayout = new SpringLayout();
 		getContentPane().setLayout(springLayout);
 		
@@ -150,7 +150,7 @@ public class VentanaRegistrarCandidato extends JFrame implements ActionListener 
 		
 		listIntereses = new JList();
 		springLayout.putConstraint(SpringLayout.NORTH, listIntereses, -1, SpringLayout.NORTH, lbApellido);
-		springLayout.putConstraint(SpringLayout.EAST, listIntereses, -59, SpringLayout.EAST, getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, listIntereses, -31, SpringLayout.EAST, getContentPane());
 		listIntereses.setModel(new AbstractListModel() {
 			String[] values = new String[] {"Ingenieria", "Salud", "Economia", "Legislativa", "Contaduria", "Artes", "Investigacion"};
 			public int getSize() {
