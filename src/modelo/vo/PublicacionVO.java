@@ -114,7 +114,7 @@ public class PublicacionVO
 	
 	public void agregarRequisito(String requisito)
 	{
-		this.requisitos.add(requisito);
+		if(!requisito.equals("")) this.requisitos.add(requisito);
 	}
 	
 	public void eliminarRequisito(String requisito)
@@ -145,7 +145,10 @@ public class PublicacionVO
 		return sueldo;
 	}
 	public void setSueldo(float f) {
-		this.sueldo = f;
+		if(Float.compare(f, 0f) == 0) throw new IllegalArgumentException("No se puede asignar un sueldo cero");
+		else if(Float.compare(f, 0f) < 0) throw new IllegalArgumentException("No se puede asignar un sueldo negativo");
+		else this.sueldo = f;
+;
 	}
 	public List<PostulacionVO> getPostulaciones() {
 		return postulaciones;

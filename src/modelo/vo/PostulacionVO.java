@@ -30,13 +30,15 @@ public class PostulacionVO
 		return mes;
 	}
 	public void setMes(Integer mes) {
-		this.mes = mes;
+		if(mes >= 1 && mes <= 12) this.mes = mes;
+		else throw new IllegalArgumentException("El mes debe estar entre los valores 1 y 12");
 	}
 	public Integer getAnio() {
 		return anio;
 	}
 	public void setAnio(Integer anio) {
-		this.anio = anio;
+		if(anio > 0) this.anio = anio;
+		else throw new IllegalArgumentException("Año invalido");
 	}
 	public CandidatoVO getCandidato() {
 		return candidato;

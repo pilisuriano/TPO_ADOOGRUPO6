@@ -1,5 +1,7 @@
 package modelo.vo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,7 +37,15 @@ public class CandidatoVO
 
 	public void setFechaNacimiento(int dia, int mes, int year)
 	{
-		this.fechaNacimiento = new Date(year, mes, dia);
+	    SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");      
+	    Date date = null;
+	    try {
+			date = formatter.parse(dia + "-" + mes + "-" + year);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		this.fechaNacimiento = date;
 	}
 	
 	public Date getFechaNacimiento() { return this.fechaNacimiento; }

@@ -141,7 +141,7 @@ public class Mockeador
 			
 			java.util.Date fecha = candVO.getFechaNacimiento();
 			
-			cand.setFechaNacimiento(fecha.getDay(), fecha.getMonth(), fecha.getYear());
+ 			cand.setFechaNacimiento(fecha.getDay(), fecha.getMonth(), fecha.getYear());
 			
 			for (String itr : candVO.getNacionalidades())
 				cand.agregarNacionalidad(itr);
